@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CategoryTranslation;
 use App\Models\FAQTranslation;
 use App\Models\SiteConfigTranslations;
 use App\Models\SliderTranslation;
@@ -24,6 +25,8 @@ class DatabaseSeeder extends Seeder
             SliderTranslationSeeder::class,
             FAQSeeder::class,
             FAQTranslationSeeder::class,
+            CategorySeeder::class,
+            CategoryTranslationSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
     }

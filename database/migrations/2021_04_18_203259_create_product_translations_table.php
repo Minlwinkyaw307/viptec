@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFAQTranslationsTable extends Migration
+class CreateProductTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateFAQTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('faq_translations', function (Blueprint $table) {
+        Schema::create('product_translations', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Language::class, 'language_id')
                 ->constrained('languages')->cascadeOnDelete();
-            $table->foreignIdFor(\App\Models\FAQ::class, 'faq_id')
-                ->constrained('faqs')->cascadeOnDelete();
-            $table->string('question');
-            $table->text('answer');
-            $table->softDeletes();
+            $table->foreignIdFor(\App\Models\Product::class, 'product_id')
+                ->constrained('products')->cascadeOnDelete();
+            $table->string('title');
+            $table->text('description');
+            $table->string('color');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateFAQTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('faq_translations');
+        Schema::dropIfExists('product_translations');
     }
 }

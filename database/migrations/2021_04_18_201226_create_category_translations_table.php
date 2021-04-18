@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Language;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFAQTranslationsTable extends Migration
+class CreateCategoryTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +14,14 @@ class CreateFAQTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('faq_translations', function (Blueprint $table) {
+        Schema::create('category_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Language::class, 'language_id')
+            $table->foreignIdFor(Language::class, 'language_id')
                 ->constrained('languages')->cascadeOnDelete();
-            $table->foreignIdFor(\App\Models\FAQ::class, 'faq_id')
-                ->constrained('faqs')->cascadeOnDelete();
-            $table->string('question');
-            $table->text('answer');
-            $table->softDeletes();
+            $table->foreignIdFor(\App\Models\Category::class, 'category_id')
+                ->constrained('categories')->cascadeOnDelete();
+            $table->string('name');
+            $table->string('slug');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateFAQTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('faq_translations');
+        Schema::dropIfExists('category_translations');
     }
 }

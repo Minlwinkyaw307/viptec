@@ -56,7 +56,7 @@ class SiteConfig extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['logoUrl', 'faviconUrl', 'aboutImageUrl'];
+    protected $appends = ['logoUrl', 'faviconUrl', 'aboutImageUrl', 'catalogueFileUrl'];
 
     /**
      * Return Url of Site Logo
@@ -99,6 +99,16 @@ class SiteConfig extends Model
         }
 
         return 'https://picsum.photos/464/580';
+    }
+
+    public function getCatalogueFileUrlAttribute(): string
+    {
+        if(Storage::exists($this->catalogue_link))
+        {
+            return Storage::url($this->catalogue_link);
+        }
+
+        return 'https://viptec.com.tr/uploads/files/viptec-catalogue.pdf';
     }
 
     public function translations(): HasMany

@@ -75,12 +75,11 @@
                             {{ app()->getLocale() }}                              </a>
                         <div class="language-drop absolute">
                             <ul>
+                                @foreach(languages() as $language)
                                 <li>
-                                    <a class="block" href="{{ current_route('en')  }}">English</a>
+                                    <a class="block" href="{{ current_route($language->code)  }}">{{ $language->original_name }}</a>
                                 </li>
-                                <li>
-                                    <a class="block" href="{{ current_route('tr') }}">Türkçe</a>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                     </li>
@@ -99,13 +98,9 @@
                 <li class="relative main-menu">
                     <a class="block" href="{{ localized_route("front.product.index") }}">{{ __("Products") }}</a>
                     <ul class="sub-menu absolute">
-                        <li><a href="">Metal Gövde Maket Bıçakları</a></li>
-                        <li><a href="">Plastik Gövde Maket Bıçakları</a></li>
-                        <li><a href="">Güvenlikli Maket Bıçakları</a></li>
-                        <li><a href="">Klipsli Maket Bıçakları</a></li>
-                        <li><a href="">Halıcı Tip Maket Bıçakları</a></li>
-                        <li><a href="">Maket Bıçağı Yedekleri</a></li>
-                        <li><a href="">Kazıma Bıçakları</a></li>
+                        @foreach($categories as $category)
+                        <li><a href="">{{ $category->translations[0]->name }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
                 <li class="relative">
@@ -117,7 +112,7 @@
                 <li class="relative">
                     <a class="block" href="{{ localized_route("front.contact") }}">{{ __("Contact") }}</a>
                 </li>
-                <li class="relative"><a class="block engintag_catalogue" target="_blank" href="uploads/files/viptec-katalog.pdf">{{ __("Download Catalogue") }}</a>
+                <li class="relative"><a class="block engintag_catalogue" target="_blank" href="{{ $configs->catalogueFileUrl }}">{{ __("Download Catalogue") }}</a>
                 </li>
                 <li class="relative">
                     <form action="" class="" method="get">
@@ -143,7 +138,7 @@
     <div class="mobile-nav-overlay fixed">
         <div class="mobile-nav-content fixed">
                   <span class="flex items-center justify-between">
-                     Menu
+                     {{ __("Menu") }}
                      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -151,39 +146,34 @@
                   </span>
             <ul>
                 <li>
-                    <a class="flex items-center" href="index.html">Anasayfa</a>
+                    <a class="flex items-center" href="{{ localized_route("front.index") }}">{{ __("Home") }}</a>
                 </li>
                 <li>
-                    <a class="flex items-center" href="page/corporate.html">Kurumsal</a>
+                    <a class="flex items-center" href="{{ localized_route("front.corporate") }}">{{ __("Corporate") }}</a>
                 </li>
                 <li class="mobile-nav-drop-go">
-                    <a class="flex items-center justify-between" href="javascript:void(0);">Ürünler                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1" style="transform: rotate(0deg);"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <a class="flex items-center justify-between" href="javascript:void(0);">
+                        {{ __('Products') }}
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1" style="transform: rotate(0deg);"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                     </a>
                     <ul class="mobile-nav-drop">
-                        <li><a class="flex items-center" href="products/metal-govde-maket-bicaklari.html">Metal Gövde Maket Bıçakları</a></li>
-                        <li><a class="flex items-center" href="products/plastik-govde-maket-bicaklari.html">Plastik Gövde Maket Bıçakları</a></li>
-                        <li><a class="flex items-center" href="products/guvenlikli-maket-bicaklari.html">Güvenlikli Maket Bıçakları</a></li>
-                        <li><a class="flex items-center" href="products/klipsli-maket-bicaklari.html">Klipsli Maket Bıçakları</a></li>
-                        <li><a class="flex items-center" href="products/halici-tip-maket-bicaklari.html">Halıcı Tip Maket Bıçakları</a></li>
-                        <li><a class="flex items-center" href="products/maket-bicagi-yedekleri.html">Maket Bıçağı Yedekleri</a></li>
-                        <li><a class="flex items-center" href="products/kazima-bicaklari.html">Kazıma Bıçakları</a></li>
+                        @foreach($categories as $category)
+                        <li><a class="flex items-center" href="">{{ $category->translations[0]->name }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
                 <li>
-                    <a class="flex items-center" href="certificates.html">Sertifikalar</a>
+                    <a class="flex items-center" href="{{ localized_route('front.certificates') }}">{{ __('Certificates') }}</a>
                 </li>
                 <li>
-                    <a class="flex items-center" href="blog.html">Blog</a>
+                    <a class="flex items-center" href="{{ localized_route("front.blog.index") }}">{{ __("Blog") }}</a>
                 </li>
                 <li>
-                    <a class="flex items-center" href="contact.html">İletişim</a>
+                    <a class="flex items-center" href="{{ localized_route("front.contact") }}">{{ __("Contact") }}</a>
                 </li>
-                <li><a class="block engintag_catalogue" target="_blank" href="uploads/files/viptec-katalog.pdf">Katalog İndir</a>
+                <li><a class="block engintag_catalogue" target="_blank" href="{{ $configs->catalogueFileUrl }}">{{ __('Download Catalogue') }}</a>
                 </li>
             </ul>
-            <div class="mobile-nav-content-buttons">
-                <a class="offer-btn block text-center" href="javascript:void(0);"  data-target=".offer-area">Teklif Al</a>
-            </div>
         </div>
     </div>
 </div>

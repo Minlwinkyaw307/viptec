@@ -4,17 +4,18 @@
 namespace App\View\Composers;
 
 
+use App\Models\Category;
 use App\Models\SiteConfig;
 use Illuminate\View\View;
 
 class ConfigComposer
 {
     /**
-     * Limit of featured posts
-     *
      * @var SiteConfig
      */
     private $configs;
+
+    private $categories;
 
 
     /**
@@ -25,7 +26,7 @@ class ConfigComposer
     public function __construct()
     {
         $this->configs = SiteConfig::with([
-            'translations' => function($query) {
+            'translations' => function ($query) {
                 get_current_translation($query);
                 $query->select([
                     'id',
@@ -38,6 +39,12 @@ class ConfigComposer
             }
         ])->first();
 
+        $this->categories = Category::where('visible', true)
+            ->with(['translations' => function ($query) {
+                get_current_translation($query);
+            }])->withCount('products')
+            ->orderBy('products_count', 'DESC')
+            ->get();
     }
 
     /**
@@ -48,6 +55,6 @@ class ConfigComposer
      */
     public function compose(View $view)
     {
-        $view->with('configs', $this->configs);
+        $view->with('configs', $this->configs)->with('categories', $this->categories);
     }
 }

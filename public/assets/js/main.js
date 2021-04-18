@@ -18,39 +18,39 @@ const slide = new Swiper('.slides', {
 
     autoplay: {
 
-      delay: 5000,
+        delay: 5000,
 
     },
 
     keyboard: {
 
-      enabled: true,
+        enabled: true,
 
-      onlyInViewport: false,
+        onlyInViewport: false,
 
     },
 
     pagination: {
 
-      el: '.swiper-pagination',
+        el: '.swiper-pagination',
 
-      clickable: true,
+        clickable: true,
 
     },
 
     navigation: {
 
-      nextEl: '.swiper-button-next',
+        nextEl: '.swiper-button-next',
 
-      prevEl: '.swiper-button-prev',
+        prevEl: '.swiper-button-prev',
 
     }
 
-  });
+});
 
 
 
-  const productSlide = new Swiper(".products-slide", {
+const productSlide = new Swiper(".products-slide", {
 
     spaceBetween: 20,
 
@@ -60,15 +60,15 @@ const slide = new Swiper('.slides', {
 
     autoplay: {
 
-      delay: 3000
+        delay: 3000
 
     },
 
     keyboard: {
 
-      enabled: true,
+        enabled: true,
 
-      onlyInViewport: false
+        onlyInViewport: false
 
     },
 
@@ -78,41 +78,41 @@ const slide = new Swiper('.slides', {
 
         prevEl: '.product-button-prev',
 
-      },
+    },
 
     breakpoints: {
 
-      1024: {
+        1024: {
 
-        slidesPerView: 3
+            slidesPerView: 3
 
-      },
+        },
 
-      768: {
+        768: {
 
-        slidesPerView: 2
+            slidesPerView: 2
 
-      },
+        },
 
-      640: {
+        640: {
 
-        slidesPerView: 1
+            slidesPerView: 1
 
-      },
+        },
 
-      320: {
+        320: {
 
-        slidesPerView: 1
+            slidesPerView: 1
 
-      }
+        }
 
     }
 
-  });
+});
 
 
 
-  const aboutCertificateSlide = new Swiper(".about-certificate-slide", {
+const aboutCertificateSlide = new Swiper(".about-certificate-slide", {
 
     spaceBetween: 20,
 
@@ -122,15 +122,15 @@ const slide = new Swiper('.slides', {
 
     autoplay: {
 
-      delay: 3000
+        delay: 3000
 
     },
 
     keyboard: {
 
-      enabled: true,
+        enabled: true,
 
-      onlyInViewport: false
+        onlyInViewport: false
 
     },
 
@@ -140,37 +140,37 @@ const slide = new Swiper('.slides', {
 
         prevEl: '.about-certificate-button-next',
 
-      },
+    },
 
     breakpoints: {
 
-      1024: {
+        1024: {
 
-        slidesPerView: 4
+            slidesPerView: 4
 
-      },
+        },
 
-      768: {
+        768: {
 
-        slidesPerView: 2
+            slidesPerView: 2
 
-      },
+        },
 
-      640: {
+        640: {
 
-        slidesPerView: 1
+            slidesPerView: 1
 
-      },
+        },
 
-      320: {
+        320: {
 
-        slidesPerView: 1
+            slidesPerView: 1
 
-      }
+        }
 
     }
 
-  });
+});
 
 
 
@@ -206,11 +206,11 @@ const galleryTop = new Swiper('.gallery-top', {
 
     }
 
-});  
+});
 
-  
 
-    $(".theme-faq-qa-head").click(function() {
+
+$(".theme-faq-qa-head").click(function() {
 
     var display = $(this).next().is(":visible") ? 1 : 0;
 
@@ -232,21 +232,21 @@ const galleryTop = new Swiper('.gallery-top', {
 
 $(document).on("click", "[data-video]", function() {
 
-  var video = $(this).data("video");
+    var video = $(this).data("video");
 
-  var title = $(this).data("title");
+    var title = $(this).data("title");
 
-  var short = $(this).data("short");
+    var short = $(this).data("short");
 
-  if (video) {
+    if (video) {
 
-      $('.videos iframe').attr('src', video);
+        $('.videos iframe').attr('src', video);
 
-      $('#title').html(title);
+        $('#title').html(title);
 
-      $('#short').html(short);
+        $('#short').html(short);
 
-  }
+    }
 
 });
 
@@ -254,7 +254,7 @@ $(document).on("click", "[data-video]", function() {
 
 $(document).on("click","#bulletinButton",function(e){
 
-  var bulletin = $("#bulletin").val();
+    var bulletin = $("#bulletin").val();
 
     var t = $(this);
 
@@ -264,45 +264,45 @@ $(document).on("click","#bulletinButton",function(e){
 
     t.prop("disabled", !0);
 
-   $.ajax({
+    $.ajax({
 
-    url:origin + "/service/data",
+        url:origin + "/service/data",
 
-    type:"POST",
+        type:"POST",
 
-    dataType:"json",
+        dataType:"json",
 
-    data:{"bulletin":bulletin, "type":"bulletin"},
+        data:{"bulletin":bulletin, "type":"bulletin"},
 
-    success:function(data){
+        success:function(data){
 
-      if(data.success){
+            if(data.success){
 
-       getMessage(data.success,'success');
+                getMessage(data.success,'success');
 
-        $("#bulletin").val("");
+                $("#bulletin").val("");
 
-      }else{
+            }else{
 
-       getMessage(data.error,'error');
+                getMessage(data.error,'error');
 
-      }
+            }
 
-    },
+        },
 
-    complete:function(){
+        complete:function(){
 
-      // $("#bulletin").val("");
+            // $("#bulletin").val("");
 
-        t.html(html);
+            t.html(html);
 
-        t.prop("disabled", !1)
+            t.prop("disabled", !1)
 
-    }
+        }
 
-  })
+    })
 
-  e.preventDefault();
+    e.preventDefault();
 
 });
 
@@ -310,61 +310,61 @@ $(document).on("click","#bulletinButton",function(e){
 
 $(document).on("click","#contactFormButton",function(e){
 
-  var t = $(this);
+    var t = $(this);
 
-  var html = t.html();
+    var html = t.html();
 
-  t.html(loader);
+    t.html(loader);
 
-  t.prop("disabled", !0);
+    t.prop("disabled", !0);
 
-  var name     = $("#name").val();
+    var name     = $("#name").val();
 
-  var surname  = $("#lastname").val();
+    var surname  = $("#lastname").val();
 
-  var email    = $("#email").val();
+    var email    = $("#email").val();
 
-  var phone    = $("#phone").val();
+    var phone    = $("#phone").val();
 
-  var message  = $("#message").val();
+    var message  = $("#message").val();
 
-  $.ajax({
+    $.ajax({
 
-    url:origin + "/service/data",
+        url:origin + "/service/data",
 
-    type:"POST",
+        type:"POST",
 
-    dataType:"json",
+        dataType:"json",
 
-    data:{"name":name,"surname":surname,"email":email,"phone":phone,"message":message,"type":"contactform"},
+        data:{"name":name,"surname":surname,"email":email,"phone":phone,"message":message,"type":"contactform"},
 
-    success:function(data){
+        success:function(data){
 
-      if(data.success){
+            if(data.success){
 
-        $("form").trigger("reset");
+                $("form").trigger("reset");
 
-        getMessage(data.success,'success');
+                getMessage(data.success,'success');
 
-      }else{
+            }else{
 
-        getMessage(data.error,'error');
+                getMessage(data.error,'error');
 
-      }
+            }
 
-    },
+        },
 
-    complete:function(){
+        complete:function(){
 
-      t.html(html);
+            t.html(html);
 
-      t.prop("disabled", !1)
+            t.prop("disabled", !1)
 
-    }
+        }
 
-  })
+    })
 
-  e.preventDefault();
+    e.preventDefault();
 
 });
 
@@ -372,65 +372,65 @@ $(document).on("click","#contactFormButton",function(e){
 
 $(document).on("click","#send-getquote",function(e){
 
-  var t = $(this);
+    var t = $(this);
 
-  var html = t.html();
+    var html = t.html();
 
-  t.html(loader);
+    t.html(loader);
 
-  t.prop("disabled", !0);
+    t.prop("disabled", !0);
 
-  var name     = $("#name").val();
+    var name     = $("#name").val();
 
-  var surname  = $("#surname").val();
+    var surname  = $("#surname").val();
 
-  var email    = $("#email").val();
+    var email    = $("#email").val();
 
-  var phone    = $("#phone").val();
+    var phone    = $("#phone").val();
 
-  var message  = $("#message").val();
+    var message  = $("#message").val();
 
-  var product  = $("#product").val();
+    var product  = $("#product").val();
 
-  var piece    = $("#piece").val();
+    var piece    = $("#piece").val();
 
-  $.ajax({
+    $.ajax({
 
-    url:origin + "/service/data",
+        url:origin + "/service/data",
 
-    type:"POST",
+        type:"POST",
 
-    dataType:"json",
+        dataType:"json",
 
-    data:{"name":name,"surname":surname,"email":email,"phone":phone,"product":product,"piece":piece,"message":message,"type":"getquote"},
+        data:{"name":name,"surname":surname,"email":email,"phone":phone,"product":product,"piece":piece,"message":message,"type":"getquote"},
 
-    success:function(data){
+        success:function(data){
 
-      if(data.success){
+            if(data.success){
 
-        $("form").trigger("reset");
+                $("form").trigger("reset");
 
-        getMessage(data.success,'success');
+                getMessage(data.success,'success');
 
-      }else{
+            }else{
 
-        getMessage(data.error,'error');
+                getMessage(data.error,'error');
 
-      }
+            }
 
-    },
+        },
 
-    complete:function(){
+        complete:function(){
 
-      t.html(html);
+            t.html(html);
 
-      t.prop("disabled", !1)
+            t.prop("disabled", !1)
 
-    }
+        }
 
-  })
+    })
 
-  e.preventDefault();
+    e.preventDefault();
 
 });
 
@@ -440,15 +440,15 @@ function getMessage(message,type){
 
     Swal.fire({
 
-      position: 'top-center',
+        position: 'top-center',
 
-      icon: type,
+        icon: type,
 
-      title: message,
+        title: message,
 
-      showConfirmButton: false,
+        showConfirmButton: false,
 
-      timer: 2500
+        timer: 2500
 
     })
 
@@ -458,13 +458,13 @@ function getMessage(message,type){
 
 $(document).click(function(e) {
 
-  const target = e.target;
+    const target = e.target;
 
-  if (!$(target).is('.offer-area, .offer-area *, .infobar .offer-btn , .infobar .offer-btn *')) {
+    if (!$(target).is('.offer-area, .offer-area *, .infobar .offer-btn , .infobar .offer-btn *')) {
 
-    $(".product-modal").fadeOut();
+        $(".product-modal").fadeOut();
 
-  }
+    }
 
 });
 
@@ -472,13 +472,13 @@ $(document).click(function(e) {
 
 $(document).click(function(e) {
 
-  const target = e.target;
+    const target = e.target;
 
-  if (!$(target).is('.offer-area, .offer-area *, .pd-info-buttons .offer-button , .pd-info-buttons .offer-button *')) {
+    if (!$(target).is('.offer-area, .offer-area *, .pd-info-buttons .offer-button , .pd-info-buttons .offer-button *')) {
 
-    $(".product-modal").fadeOut();
+        $(".product-modal").fadeOut();
 
-  }
+    }
 
 });
 
@@ -488,23 +488,23 @@ $(document).click(function(e) {
 
 function modal(clickelement) {
 
-  $(clickelement).click(function() {
+    $(clickelement).click(function() {
 
-    const target = $(this).data("target");
+        const target = $(this).data("target");
 
-    $(target).fadeIn();
+        $(target).fadeIn();
 
-  });
+    });
 
 
 
-  $('.modal-close').click(function() {
+    $('.modal-close').click(function() {
 
-    const target = $(this).parent().parent().parent();
+        const target = $(this).parent().parent().parent();
 
-    $(target).fadeOut();
+        $(target).fadeOut();
 
-  });
+    });
 
 }
 
@@ -523,21 +523,21 @@ modal(".pd-info-buttons .offer-button");
 
 $('.mobile-nav-btn').click(function() {
 
-  $('.mobile-nav').fadeIn();
+    $('.mobile-nav').fadeIn();
 
-  $('.mobile-nav-content').css('right', '0');
+    $('.mobile-nav-content').css('right', '0');
 
-  $('body').css('overflow-y', 'hidden');
+    $('body').css('overflow-y', 'hidden');
 
 });
 
 $('.mobile-nav-content span svg').click(function() {
 
-  $('.mobile-nav-content').css('right', '-999px');
+    $('.mobile-nav-content').css('right', '-999px');
 
-  $('.mobile-nav').fadeOut();
+    $('.mobile-nav').fadeOut();
 
-  $('body').css('overflow-y', 'auto');
+    $('body').css('overflow-y', 'auto');
 
 });
 
@@ -545,21 +545,20 @@ $('.mobile-nav-content span svg').click(function() {
 
 $('.mobile-nav-drop-go').click(function() {
 
-  var display = $(this).children('.mobile-nav-drop').is(':visible') ? 1 : 0;
+    var display = $(this).children('.mobile-nav-drop').is(':visible') ? 1 : 0;
 
-  if (display) {
+    if (display) {
 
-      $(this).children('a').children('svg').css('transform', 'rotate(0deg)');
+        $(this).children('a').children('svg').css('transform', 'rotate(0deg)');
 
-      $(this).children('.mobile-nav-drop').slideUp();
+        $(this).children('.mobile-nav-drop').slideUp();
 
-  } else {
+    } else {
 
-      $(this).children('a').children('svg').css('transform', 'rotate(45deg)');
+        $(this).children('a').children('svg').css('transform', 'rotate(45deg)');
 
-      $(this).children('.mobile-nav-drop').slideDown();
+        $(this).children('.mobile-nav-drop').slideDown();
 
-  }
+    }
 
 })
-

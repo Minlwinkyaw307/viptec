@@ -28,9 +28,9 @@
 
         <div class="infobar relative z-0">
             <div class="container mx-auto">
-                <span class="block">Size Özel Çözümlerimiz İçin <br> Hemen Teklif Alın. </span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac erat euismod <br> volutpat egestas suscipit pellentesque non aliquam turpis, nec porta risus.</p>
-                <a class="inline-block relative" href="">Teklif Al</a>
+                <span class="block">Get a Quote for Special Offers and Solutions</span>
+                <p>Prices vary according to features of desired products. To get our special price offer, press the button below and we will contact you.</p>
+                <a class="offer-btn inline-block relative" href="javascript:void(0);" data-target=".offer-area" data="">Get Quote</a>
             </div>
         </div>
 
@@ -52,5 +52,29 @@
             </div>
         </div>
     </div>
+
+    <section class="offer-area" style="display: none;">
+        <div class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-close">
+                    <svg height="512" viewBox="0 0 413.348 413.348" width="512" xmlns="http://www.w3.org/2000/svg"><path d="M413.348 24.354L388.994 0l-182.32 182.32L24.354 0 0 24.354l182.32 182.32L0 388.994l24.354 24.354 182.32-182.32 182.32 182.32 24.354-24.354-182.32-182.32z"></path></svg>
+                </div>
+                <span>Get a Free Quote</span>
+                <form action="" method="post" id="getquote-form">
+                    <input type="text" id="name" name="name" placeholder="Your Name *">
+                    <input type="text" id="surname" name="surname" placeholder="Your Surname *">
+                    <input type="email" id="email" name="email" placeholder="Your E-mail Address *">
+                    <input type="phone" id="phone" name="phone" placeholder="Your Phone Number *">
+                    <select name="product" id="product">
+                        <option value="">Select a Product</option>
+                        <option value="VT875101 Profesyonel Maket Bıçağı">VT875101  Professional Utility Knife </option>
+                    </select>
+                    <input type="number" min="1" placeholder="Piece" id="piece" name="piece">
+                    <textarea placeholder="Your Message" id="message" name="message"></textarea>
+                    <button id="send-getquote" class="engintag_priceform">Send</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
 @endsection
