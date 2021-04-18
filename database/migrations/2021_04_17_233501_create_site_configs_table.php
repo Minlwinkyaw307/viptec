@@ -16,13 +16,16 @@ class CreateSiteConfigsTable extends Migration
         Schema::create('site_configs', function (Blueprint $table) {
             $table->id();
             $table->text('logo');
+            $table->text('favicon');
             $table->string('phone', 20);
             $table->string('email', 50);
             $table->string('facebook', 150);
-            $table->string('twitter', 150);
+            $table->string('linkedin', 150);
             $table->string('instagram', 150);
             $table->string('youtube', 150);
             $table->text('address');
+            $table->text('catalogue_link');
+            $table->text('about_image');
             $table->timestamps();
         });
     }

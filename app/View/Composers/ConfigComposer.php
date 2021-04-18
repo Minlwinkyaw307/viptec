@@ -27,8 +27,17 @@ class ConfigComposer
         $this->configs = SiteConfig::with([
             'translations' => function($query) {
                 get_current_translation($query);
+                $query->select([
+                    'id',
+                    'language_id',
+                    'site_config_id',
+                    'title',
+                    'site_name',
+                    'description',
+                ]);
             }
         ])->first();
+
     }
 
     /**

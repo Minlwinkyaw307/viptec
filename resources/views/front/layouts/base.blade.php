@@ -20,6 +20,7 @@
 
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/swiper.min.js') }}"></script>
+<script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.fancybox.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 

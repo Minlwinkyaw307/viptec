@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\FAQTranslation;
+use App\Models\SiteConfigTranslations;
+use App\Models\SliderTranslation;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,6 +18,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             LanguageSeeder::class,
+            SiteConfigSeeder::class,
+            SiteConfigTranslationsSeeder::class,
+            SliderSeeder::class,
+            SliderTranslationSeeder::class,
+            FAQSeeder::class,
+            FAQTranslationSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
     }

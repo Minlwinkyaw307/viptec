@@ -7,6 +7,8 @@ use Illuminate\View\Component;
 
 class Slider extends Component
 {
+
+    public $sliders;
     /**
      * Create a new component instance.
      *
@@ -14,7 +16,9 @@ class Slider extends Component
      */
     public function __construct()
     {
-        //
+        $this->sliders = \App\Models\Slider::with(['translations' => function($query) {
+            get_current_translation($query);
+        }])->get();
     }
 
     /**

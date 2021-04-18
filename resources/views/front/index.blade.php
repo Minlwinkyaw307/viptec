@@ -10,16 +10,16 @@
                 <div class="about-box flex flex-col-reverse lg:flex-row lg:items-center">
                     <div class="about-text w-full lg:w-3/5">
                         <div class="head">
-                            <span class="block">Hakkımızda</span>
-                            <h3>Kısaca Viptec</h3>
+                            <span class="block">{{ __('About Us') }}</span>
+                            <h3>{{ $about->translations[0]->about_title }}</h3>
                         </div>
                         <p class="text-justify">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus interdum risus urna, a ultrices libero pellentesque id. Suspendisse augue eros, rutrum sit amet orci ut, şuctus laoreet felis. Cras ut facilisis est, sed porta neque. Mauris posuere pellentesque risus sed tempor. Aliquam rutrum, mauris eu aliquam luctus, ligula quam scelerisque massa, vitae ultrices dolor urna vitae augue. Nullam luctus semper diam, quis pharetra quam iaculis sit amet. Mauris iaculis libero leo, at scelerisque ligula pulvinar non.
+                            {{ $about->translations[0]->about_description }}
                         </p>
 
-                        <a class="inline-block" href="">Detaylı Bilgi Edin</a>
+                        <a class="inline-block" href="{{ localized_route('front.corporate') }}">{{ __("More About Us") }}</a>
                     </div>
-                    <div class="about-image w-full lg:w-2/5"><img src="https://i.hizliresim.com/MWYAKL.jpg" alt="Viptec hakkında"></div>
+                    <div class="about-image w-full lg:w-2/5"><img src="{{ $about->aboutImageUrl }}" alt="{{ $about->translations[0]->about_title }}"></div>
                 </div>
             </div>
         </div>

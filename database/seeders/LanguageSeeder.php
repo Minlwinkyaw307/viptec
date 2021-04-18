@@ -27,7 +27,6 @@ class LanguageSeeder extends Seeder
             ]
         ];
 
-        Language::truncate();
         Language::insert($rows);
     }
 }
