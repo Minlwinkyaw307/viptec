@@ -1,6 +1,5 @@
 install:
 	php artisan key:generate
-	php artisan storage:link
 	php artisan db:wipe
 	php artisan migrate:install
 	php artisan migrate

@@ -15,6 +15,8 @@ class CreatePackageTypesTable extends Migration
     {
         Schema::create('package_types', function (Blueprint $table) {
             $table->id();
+            $table->boolean('visible');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

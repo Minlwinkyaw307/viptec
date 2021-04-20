@@ -15,6 +15,12 @@ class CreateFeatureTranslationsTable extends Migration
     {
         Schema::create('feature_translations', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Language::class, 'language_id')
+                ->constrained('languages')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Feature::class, 'feature_id')
+                ->constrained('features')->cascadeOnDelete();
+            $table->string('name');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

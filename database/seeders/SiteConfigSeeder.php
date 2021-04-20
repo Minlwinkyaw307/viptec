@@ -27,6 +27,7 @@ class SiteConfigSeeder extends Seeder
                 'address' => 'Bağlar İçi Cd. No: 85 Firuzköy Avcılar/İstanbul',
                 'catalogue_link' => 'configs/viptec-catalogue.pdf',
                 'about_image' => 'configs/about.jpg',
+                'quota_background' => 'configs/quota.jpg',
             ]
         ];
 

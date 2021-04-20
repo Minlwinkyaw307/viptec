@@ -15,6 +15,8 @@ class CreateFeaturesTable extends Migration
     {
         Schema::create('features', function (Blueprint $table) {
             $table->id();
+            $table->boolean('visible');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

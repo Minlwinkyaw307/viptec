@@ -26,6 +26,7 @@ class CreateSiteConfigsTable extends Migration
             $table->text('address');
             $table->text('catalogue_link');
             $table->text('about_image');
+            $table->text('quota_background');
             $table->timestamps();
         });
     }

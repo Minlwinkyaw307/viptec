@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\Storage;
  * @property string $about_image
  * @property-read string $about_image_url
  * @method static \Illuminate\Database\Eloquent\Builder|SiteConfig whereAboutImage($value)
+ * @property-read string $catalogue_file_url
  */
 class SiteConfig extends Model
 {
@@ -101,6 +102,11 @@ class SiteConfig extends Model
         return 'https://picsum.photos/464/580';
     }
 
+    /**
+     * Return Catalogue as Url
+     *
+     * @return string
+     */
     public function getCatalogueFileUrlAttribute(): string
     {
         if(Storage::exists($this->catalogue_link))
@@ -109,6 +115,15 @@ class SiteConfig extends Model
         }
 
         return 'https://viptec.com.tr/uploads/files/viptec-catalogue.pdf';
+    }
+    public function getQuotaBackgroundUrlAttribute(): string
+    {
+        if(Storage::exists($this->quota_background))
+        {
+            return Storage::url($this->quota_background);
+        }
+
+        return 'https://picsum.photos/626/417';
     }
 
     public function translations(): HasMany

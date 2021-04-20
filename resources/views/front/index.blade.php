@@ -24,9 +24,7 @@
             </div>
         </div>
 
-        <x-front::featured-products></x-front::featured-products>
-
-        <div class="infobar relative z-0">
+        <div class="infobar relative z-0" style="background-image: url('{{ $configs->quotaBackgroundUrl }}')">
             <div class="container mx-auto">
                 <span class="block">Get a Quote for Special Offers and Solutions</span>
                 <p>Prices vary according to features of desired products. To get our special price offer, press the button below and we will contact you.</p>

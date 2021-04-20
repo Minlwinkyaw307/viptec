@@ -27,6 +27,14 @@ class DatabaseSeeder extends Seeder
             FAQTranslationSeeder::class,
             CategorySeeder::class,
             CategoryTranslationSeeder::class,
+            ProductSeeder::class,
+            ProductTranslationSeeder::class,
+            FeatureSeeder::class,
+            FeatureTranslationSeeder::class,
+            PackageTypeSeeder::class,
+            PackageTypeTranslationSeeder::class,
+            ProductFeatureSeeder::class,
+            ProductPackageTypeSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
     }

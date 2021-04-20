@@ -15,6 +15,12 @@ class CreatePackageTypeTranslationsTable extends Migration
     {
         Schema::create('package_type_translations', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Language::class, 'language_id')
+                ->constrained('languages')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\PackageType::class, 'package_type_id')
+                ->constrained('package_types')->cascadeOnDelete();
+            $table->string('name');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

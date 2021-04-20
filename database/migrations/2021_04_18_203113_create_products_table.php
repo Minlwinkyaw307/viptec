@@ -20,7 +20,8 @@ class CreateProductsTable extends Migration
             $table->string('code', 100);
             $table->integer('length');
             $table->integer('width');
-            $table->integer('weight');
+            $table->integer('weight')->nullable();
+            $table->decimal('thickness', 6, 2)->nullable();
             $table->foreignIdFor(\App\Models\Product::class, 'blade_id')
                 ->nullable()
                 ->constrained('products')->nullOnDelete();

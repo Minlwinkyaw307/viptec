@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ProductFeature;
 use Illuminate\Database\Seeder;
 
 class ProductFeatureSeeder extends Seeder
@@ -13,6 +14,17 @@ class ProductFeatureSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $rows = [
+            [
+                'product_id' => 1,
+                'feature_id' => 1,
+            ],
+            [
+                'product_id' => 1,
+                'feature_id' => 2,
+            ],
+        ];
+
+        ProductFeature::insert($rows);
     }
 }

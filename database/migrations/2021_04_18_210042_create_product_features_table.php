@@ -15,6 +15,11 @@ class CreateProductFeaturesTable extends Migration
     {
         Schema::create('product_features', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Product::class, 'product_id')
+                ->constrained('products')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Feature::class, 'feature_id')
+                ->constrained('features')->cascadeOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

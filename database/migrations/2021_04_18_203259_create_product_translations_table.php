@@ -20,8 +20,8 @@ class CreateProductTranslationsTable extends Migration
             $table->foreignIdFor(\App\Models\Product::class, 'product_id')
                 ->constrained('products')->cascadeOnDelete();
             $table->string('title');
-            $table->text('description');
-            $table->string('color');
+            $table->text('description')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }
