@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -32,8 +33,48 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|ProductPackageType withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ProductPackageType withoutTrashed()
  * @mixin \Eloquent
+ * @property-read string $image_url
+ * @property-read \App\Models\PackageType $package_type
+ * @property-read \App\Models\Product $product
  */
 class ProductPackageType extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $guarded = [];
+
+    /**
+     * Belonged Product
+     *
+     * @return BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'id', 'product_id');
+    }
+
+    /**
+     * Belonged Package Type
+     *
+     * @return BelongsTo
+     */
+    public function package_type(): BelongsTo
+    {
+        return $this->belongsTo(PackageType::class, 'id', 'product_id');
+    }
+
+    /**
+     * Return Url of image
+     *
+     * @return string
+     */
+    public function getImageUrlAttribute(): string
+    {
+        if(\Storage::exists($this->image))
+        {
+            return \Storage::url($this->image);
+        }
+
+        return 'https://picsum.photos/580/630';
+    }
 }

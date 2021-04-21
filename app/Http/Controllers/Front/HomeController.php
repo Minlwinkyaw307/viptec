@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Certificate;
 use App\Models\SiteConfig;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -42,7 +43,24 @@ class HomeController extends Controller
      */
     public function corporate()
     {
-        return view('front.corporate');
+        $about = SiteConfig::select(['id', 'about_image'])->with(['translations' => function($query) {
+            get_current_translation($query);
+            $query->select([
+                'id',
+                'language_id',
+                'site_config_id',
+                'about_title',
+                'about_description',
+                'vision'
+            ]);
+        }])->first();
+
+        $certificates = Certificate::where('visible', true)->orderBy('order_no', 'DESC')->get();
+
+        return view('front.corporate', [
+            'about' => $about,
+            'certificates' => $certificates,
+        ]);
     }
 
     /**

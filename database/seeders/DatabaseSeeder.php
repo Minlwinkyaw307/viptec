@@ -35,6 +35,11 @@ class DatabaseSeeder extends Seeder
             PackageTypeTranslationSeeder::class,
             ProductFeatureSeeder::class,
             ProductPackageTypeSeeder::class,
+            GallerySeeder::class,
+            BlogSeeder::class,
+            BlogTranslationSeeder::class,
+            CertificateSeeder::class,
+            CertificateTranslationSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
     }

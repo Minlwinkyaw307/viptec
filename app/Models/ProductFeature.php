@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -28,8 +29,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|ProductFeature withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ProductFeature withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \App\Models\Feature $feature
+ * @property-read \App\Models\Product $product
  */
 class ProductFeature extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $guarded = [];
+
+    /**
+     * Belonged Product
+     *
+     * @return BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'id', 'product_id');
+    }
+
+    /**
+     * Belonged Feature
+     *
+     * @return BelongsTo
+     */
+    public function feature(): BelongsTo
+    {
+        return $this->belongsTo(Feature::class, 'id', 'feature_id');
+    }
 }

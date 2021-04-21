@@ -41,6 +41,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Product withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Product withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductFeature[] $product_features
+ * @property-read int|null $product_features_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductPackageType[] $product_package_types
+ * @property-read int|null $product_package_types_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductTranslation[] $translations
+ * @property-read int|null $translations_count
  */
 class Product extends Model
 {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -26,8 +27,34 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|PackageType withTrashed()
  * @method static \Illuminate\Database\Query\Builder|PackageType withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductPackageType[] $product_package_types
+ * @property-read int|null $product_package_types_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PackageTypeTranslation[] $translations
+ * @property-read int|null $translations_count
  */
 class PackageType extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $guarded = [];
+
+    /**
+     * All the products (From product_package_types) of current package type
+     *
+     * @return HasMany
+     */
+    public function product_package_types(): HasMany
+    {
+        return $this->hasMany(ProductPackageType::class, 'package_type_id', 'id');
+    }
+
+    /**
+     * All the translations of Package Type
+     *
+     * @return HasMany
+     */
+    public function translations(): HasMany
+    {
+        return $this->hasMany(PackageTypeTranslation::class, 'package_type_id', 'id');
+    }
 }

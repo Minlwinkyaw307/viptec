@@ -50,6 +50,9 @@ use Illuminate\Support\Facades\Storage;
  * @property-read string $about_image_url
  * @method static \Illuminate\Database\Eloquent\Builder|SiteConfig whereAboutImage($value)
  * @property-read string $catalogue_file_url
+ * @property string $quota_background
+ * @property-read string $quota_background_url
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteConfig whereQuotaBackground($value)
  */
 class SiteConfig extends Model
 {

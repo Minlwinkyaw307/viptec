@@ -26,7 +26,8 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer([
-            'front.index'
+            'front.index',
+            'front.corporate',
         ], ConfigComposer::class);
     }
 }
