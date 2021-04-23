@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
             PackageTypeTranslationSeeder::class,
             ProductFeatureSeeder::class,
             ProductPackageTypeSeeder::class,
+            ProductCompatibleSeeder::class,
+            ProductImageSeeder::class,
             GallerySeeder::class,
             BlogSeeder::class,
             BlogTranslationSeeder::class,

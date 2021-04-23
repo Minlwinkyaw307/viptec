@@ -7,7 +7,7 @@
                     <div class="main-slide-text absolute container mx-auto">
                         <span class="block">{{ $slider->translations[0]->title }}</span>
                         <p class="hidden sm:block">{{ $slider->translations[0]->description }}</p>
-                        <a class="hidden sm:inline-block" href="">ÜRÜNLERİ İNCELE</a>
+                        <a class="hidden sm:inline-block" href="{{ localized_route('front.product.index') }}">{{ __("View Products") }}</a>
                     </div>
                 </div>
             @endforeach

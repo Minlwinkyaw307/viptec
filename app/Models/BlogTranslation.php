@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|BlogTranslation whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BlogTranslation whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogTranslation whereSlug($value)
  */
 class BlogTranslation extends Model
 {

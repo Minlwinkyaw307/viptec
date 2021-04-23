@@ -18,8 +18,8 @@ class ProductController extends Controller
         if (!is_null($search)) {
             $products = $products->whereHas('translations', function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
-                    $q->where('title', $search)
-                        ->orWhere('description', $search);
+                    $q->where('title', 'like', "%$search%")
+                        ->orWhere('description', 'like', "%$search%");
                 });
             });
         }
@@ -38,6 +38,8 @@ class ProductController extends Controller
 
         return view('front.product.index', [
             'products' => $products,
+            'title' => __("Products") . ' | VipTec',
+            'meta_image' => count($products->items()) ? $products->items()[0]->thumbnailUrl : null,
         ]);
     }
 
@@ -47,10 +49,21 @@ class ProductController extends Controller
           $query->where('slug', $slug);
         })->with(['translations' => function($query) {
             get_current_translation($query);
-        }])->where('visible', true)->firstOrFail();
+        }, 'category.translations' => function($query) {
+            get_current_translation($query);
+        }, 'product_features.feature.translations' => function($query) {
+            get_current_translation($query);
+        }, 'product_package_types.package_type.translations' => function($query) {
+            get_current_translation($query);
+        }, 'product_images', 'product_compatibles.blade:id,code'])
+            ->where('visible', true)->firstOrFail();
+
 
         return view('front.product.detail', [
-            'product' => $product
+            'product' => $product,
+            'title' => $product->translations[0]->title,
+            'description' => $product->translations[0]->description,
+            'meta_image' => $product->imageUrl,
         ]);
     }
 }

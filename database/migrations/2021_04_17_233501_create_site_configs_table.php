@@ -24,6 +24,7 @@ class CreateSiteConfigsTable extends Migration
             $table->string('linkedin', 150);
             $table->string('instagram', 150);
             $table->string('youtube', 150);
+            $table->string('tutorial_link', 150);
             $table->text('location');
             $table->text('address');
             $table->text('catalogue_link');

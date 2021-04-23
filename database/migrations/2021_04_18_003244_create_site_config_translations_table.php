@@ -26,6 +26,9 @@ class CreateSiteConfigTranslationsTable extends Migration
             $table->string('about_title');
             $table->text('about_description');
             $table->longText('vision');
+
+            $table->string('quota_title');
+            $table->string('quota_description');
             $table->timestamps();
         });
     }

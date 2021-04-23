@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="footer-nav w-full md:w-1/2 xl:w-2/6">
-                <span class="block">Ürünler</span>
+                <span class="block">{{ __("Products") }}</span>
                 <div class="footer-nav-in flex">
                     <ul>
                         @foreach($categories as $category)

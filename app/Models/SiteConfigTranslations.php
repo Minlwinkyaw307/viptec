@@ -34,6 +34,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|SiteConfigTranslations whereAboutDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SiteConfigTranslations whereAboutTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SiteConfigTranslations whereVision($value)
+ * @property string $quota_title
+ * @property string $quota_description
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteConfigTranslations whereQuotaDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteConfigTranslations whereQuotaTitle($value)
  */
 class SiteConfigTranslations extends Model
 {

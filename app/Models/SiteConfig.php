@@ -57,6 +57,8 @@ use Illuminate\Support\Facades\Storage;
  * @property string $location
  * @method static \Illuminate\Database\Eloquent\Builder|SiteConfig whereFax($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SiteConfig whereLocation($value)
+ * @property string $tutorial_link
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteConfig whereTutorialLink($value)
  */
 class SiteConfig extends Model
 {

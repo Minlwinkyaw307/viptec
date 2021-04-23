@@ -23,9 +23,6 @@ class CreateProductsTable extends Migration
             $table->integer('width');
             $table->integer('weight')->nullable();
             $table->decimal('thickness', 6, 2)->nullable();
-            $table->foreignIdFor(\App\Models\Product::class, 'blade_id')
-                ->nullable()
-                ->constrained('products')->nullOnDelete();
             $table->boolean('visible');
             $table->softDeletes();
             $table->timestamps();

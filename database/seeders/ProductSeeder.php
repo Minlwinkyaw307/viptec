@@ -33,7 +33,6 @@ class ProductSeeder extends Seeder
             'length' => '160',
             'width' => '18',
             'weight' => '79',
-            'blade_id' => 2,
             'visible' => true,
         ]);
     }

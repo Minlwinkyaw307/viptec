@@ -49,6 +49,14 @@ use Illuminate\Support\Facades\Storage;
  * @property-read int|null $product_package_types_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductTranslation[] $translations
  * @property-read int|null $translations_count
+ * @property string $image
+ * @property-read \App\Models\Category $category
+ * @property-read string $image_url
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductCompatible[] $product_compatibles
+ * @property-read int|null $product_compatibles_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereImage($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductImage[] $product_images
+ * @property-read int|null $product_images_count
  */
 class Product extends Model
 {
@@ -98,7 +106,27 @@ class Product extends Model
      */
     public function product_package_types(): HasMany
     {
-        return $this->hasMany(ProductPackageType::class, 'product_id', 'id');
+        return $this->hasMany(ProductPackageType::class);
+    }
+
+    /**
+     * All the compatible Blade
+     *
+     * @return HasMany
+     */
+    public function product_compatibles(): HasMany
+    {
+        return $this->hasMany(ProductCompatible::class, 'product_id', 'id');
+    }
+
+    /**
+     * Return all the image that belongs to current product
+     *
+     * @return HasMany
+     */
+    public function product_images(): HasMany
+    {
+        return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
 
     /**

@@ -30,6 +30,8 @@ class HomeController extends Controller
                 'site_config_id',
                 'about_title',
                 'about_description',
+                'quota_title',
+                'quota_description',
             ]);
         }])->first();
 
@@ -57,11 +59,11 @@ class HomeController extends Controller
             ]);
         }])->first();
 
-        $certificates = Certificate::where('visible', true)->orderBy('order_no')->get();
-
         return view('front.corporate', [
             'about' => $about,
-            'certificates' => $certificates,
+            'title' => __("Corporate") . ' | VipTec',
+            'description' => $about->translations[0]->description,
+            'meta_image' => $about->aboutImageUrl,
         ]);
     }
 
@@ -80,6 +82,8 @@ class HomeController extends Controller
 
         return view('front.certificates', [
             'certificates' => $certificates,
+            'title' => __("Certificates") . ' | VipTec',
+            'meta_image' => $certificates[0]->imageUrl,
         ]);
     }
 
@@ -93,6 +97,7 @@ class HomeController extends Controller
         $location = SiteConfig::select('location')->first()->location;
         return view('front.contact', [
             'location' => $location,
+            'title' => __("About Us") . ' | VipTec',
         ]);
     }
 

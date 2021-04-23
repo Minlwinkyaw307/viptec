@@ -25,6 +25,7 @@ class SiteConfigSeeder extends Seeder
                 'linkedin' => 'https://linkedin.com/',
                 'instagram' => 'http://instagram.com/',
                 'youtube' => 'https://www.youtube.com/',
+                'tutorial_link' => 'https://www.youtube.com/embed/vTUlG5_qgNg',
                 'location' => '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d96355.9988003104!2d28.71559!3d41.000638!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x511b4650c9f9824f!2sAr%20Metal!5e0!3m2!1sen!2str!4v1619105493231!5m2!1sen!2str" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>',
                 'address' => 'Bağlar İçi Cd. No: 85 Firuzköy Avcılar/İstanbul',
                 'catalogue_link' => 'configs/viptec-catalogue.pdf',

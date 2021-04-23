@@ -15,14 +15,14 @@
                             <li class="w-full sm:w-1/2 xl:w-1/3">
                                 <div class="blog-box">
                                     <div class="blog-box-image">
-                                        <a class="block" href="">
+                                        <a class="block" href="{{ localized_route('front.blog.detail', ['slug' => $blog->translations[0]->slug]) }}">
                                             <img src="{{ $blog->thumbnailUrl }}"
                                                  alt="{{ $blog->translations[0]->title }}">
                                         </a>
                                     </div>
                                     <div class="blog-box-text">
                                         <a class="block"
-                                           href="https://viptec.com.tr/blog/maket-bicaginin-yanlis-kullanimi-ve-dikkat-edilmesi-gereken-hususlar">
+                                           href="{{ localized_route('front.blog.detail', ['slug' => $blog->translations[0]->slug]) }}">
                                             <h2>{{ $blog->translations[0]->title }}</h2>
                                             <p>{!! \Illuminate\Support\Str::limit(strip_tags(addslashes($blog->translations[0]->content), 50)) !!}</p>
                                         </a>

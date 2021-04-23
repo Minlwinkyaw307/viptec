@@ -5,7 +5,7 @@
             @foreach($categories as $category)
                 <li>
                     <a class="block {{ request()->query('category') ==  $category->translations[0]->slug ? 'active-category' : '' }}" href="{{ localized_route('front.product.index',
-array_diff_assoc(request()->query(), ['category'=> 'v'])) }}&category={{ $category->translations[0]->slug }}">{{ $category->translations[0]->name }}</a>
+array_merge(request()->query(), ['category'=> $category->translations[0]->slug])) }}">{{ $category->translations[0]->name }}</a>
                 </li>
             @endforeach
         </ul>

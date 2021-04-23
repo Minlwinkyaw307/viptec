@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ProductTranslation whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductTranslation whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductTranslation whereSlug($value)
  */
 class ProductTranslation extends Model
 {

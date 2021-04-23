@@ -1,5 +1,12 @@
 @extends('front.layouts.base')
 
+@section('bt-javascript')
+    <script>
+        let registerNewsLetterUrl = "{{ route('api.register_news_letter') }}";
+        let getFreeQuoteUrl = "{{ route('api.get_free_quote') }}";
+    </script>
+@endsection
+
 @section('content')
 
     <x-front::slider></x-front::slider>
@@ -26,9 +33,9 @@
 
         <div class="infobar relative z-0" style="background-image: url('{{ $configs->quotaBackgroundUrl }}')">
             <div class="container mx-auto">
-                <span class="block">Get a Quote for Special Offers and Solutions</span>
-                <p>Prices vary according to features of desired products. To get our special price offer, press the button below and we will contact you.</p>
-                <a class="offer-btn inline-block relative" href="javascript:void(0);" data-target=".offer-area" data="">Get Quote</a>
+                <span class="block">{{ $about->translations[0]->quota_title }}</span>
+                <p>{{ $about->translations[0]->quota_description }}</p>
+                <a class="offer-btn inline-block relative" href="javascript:void(0);" data-target=".offer-area" data="">{{ __("Get Quote") }}</a>
             </div>
         </div>
 
@@ -41,38 +48,17 @@
     <div class="newsletter relative">
         <div class="container mx-auto flex items-center justify-between flex-col lg:flex-row">
             <div class="newsletter-text">
-                <span class="block">Maket Bıçaklarımız Hakkında Bilgi Edinin</span>
-                <p>E-bültenimize kayıt olarak maket bıçaklarımızdan haberdar olun.</p>
+                <span class="block">{{ $about->translations[0]->quota_title }}</span>
+                <p>{{ $about->translations[0]->quota_description }}</p>
             </div>
             <div class="newsletter-input flex justify-center flex-col sm:flex-row">
-                <input class="focus:outline-none" type="email" placeholder="Email Adresiniz">
-                <button class="focus:outline-none">Kayıt Ol</button>
+                <input id="email" class="focus:outline-none" type="email" placeholder="{{ __("Email Address") }}">
+                <button class="focus:outline-none" id="bulletinButton">{{ __("Register") }}</button>
             </div>
         </div>
     </div>
 
-    <section class="offer-area" style="display: none;">
-        <div class="modal-overlay">
-            <div class="modal-content">
-                <div class="modal-close">
-                    <svg height="512" viewBox="0 0 413.348 413.348" width="512" xmlns="http://www.w3.org/2000/svg"><path d="M413.348 24.354L388.994 0l-182.32 182.32L24.354 0 0 24.354l182.32 182.32L0 388.994l24.354 24.354 182.32-182.32 182.32 182.32 24.354-24.354-182.32-182.32z"></path></svg>
-                </div>
-                <span>Get a Free Quote</span>
-                <form action="" method="post" id="getquote-form">
-                    <input type="text" id="name" name="name" placeholder="Your Name *">
-                    <input type="text" id="surname" name="surname" placeholder="Your Surname *">
-                    <input type="email" id="email" name="email" placeholder="Your E-mail Address *">
-                    <input type="phone" id="phone" name="phone" placeholder="Your Phone Number *">
-                    <select name="product" id="product">
-                        <option value="">Select a Product</option>
-                        <option value="VT875101 Profesyonel Maket Bıçağı">VT875101  Professional Utility Knife </option>
-                    </select>
-                    <input type="number" min="1" placeholder="Piece" id="piece" name="piece">
-                    <textarea placeholder="Your Message" id="message" name="message"></textarea>
-                    <button id="send-getquote" class="engintag_priceform">Send</button>
-                </form>
-            </div>
-        </div>
-    </section>
+    <x-front::quota-modal></x-front::quota-modal>
+
 
 @endsection

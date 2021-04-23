@@ -45,7 +45,7 @@ class ProductFeature extends Model
      */
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'id', 'product_id');
+        return $this->belongsTo(Product::class);
     }
 
     /**
@@ -55,6 +55,6 @@ class ProductFeature extends Model
      */
     public function feature(): BelongsTo
     {
-        return $this->belongsTo(Feature::class, 'id', 'feature_id');
+        return $this->belongsTo(Feature::class);
     }
 }

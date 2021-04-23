@@ -1,9 +1,8 @@
-var loader  = '<div class="eng-loader-wp"><div class="eng-loader"></div></div>';
+let loader = '<div class="eng-loader-wp"><div class="eng-loader"></div></div>';
 
-var loader2 = '<div class="eng-loader-wp"><div class="eng-loader2"></div></div>';
+let loader2 = '<div class="eng-loader-wp"><div class="eng-loader2"></div></div>';
 
-var origin = window.location.origin;
-
+let origin = window.location.origin;
 
 
 const slide = new Swiper('.slides', {
@@ -47,7 +46,6 @@ const slide = new Swiper('.slides', {
     }
 
 });
-
 
 
 const productSlide = new Swiper(".products-slide", {
@@ -111,7 +109,6 @@ const productSlide = new Swiper(".products-slide", {
 });
 
 
-
 const aboutCertificateSlide = new Swiper(".about-certificate-slide", {
 
     spaceBetween: 20,
@@ -173,7 +170,6 @@ const aboutCertificateSlide = new Swiper(".about-certificate-slide", {
 });
 
 
-
 const galleryThumbs = new Swiper('.gallery-thumbs', {
 
     spaceBetween: 10,
@@ -209,10 +205,9 @@ const galleryTop = new Swiper('.gallery-top', {
 });
 
 
+$(".theme-faq-qa-head").click(function () {
 
-$(".theme-faq-qa-head").click(function() {
-
-    var display = $(this).next().is(":visible") ? 1 : 0;
+    let display = $(this).next().is(":visible") ? 1 : 0;
 
     $(".theme-faq-qa-content").hide();
 
@@ -229,14 +224,13 @@ $(".theme-faq-qa-head").click(function() {
 });
 
 
+$(document).on("click", "[data-video]", function () {
 
-$(document).on("click", "[data-video]", function() {
+    let video = $(this).data("video");
 
-    var video = $(this).data("video");
+    let title = $(this).data("title");
 
-    var title = $(this).data("title");
-
-    var short = $(this).data("short");
+    let short = $(this).data("short");
 
     if (video) {
 
@@ -251,14 +245,13 @@ $(document).on("click", "[data-video]", function() {
 });
 
 
+$(document).on("click", "#bulletinButton", function (e) {
 
-$(document).on("click","#bulletinButton",function(e){
+    let email = $("#email").val();
 
-    var bulletin = $("#bulletin").val();
+    let t = $(this);
 
-    var t = $(this);
-
-    var html = t.html();
+    let html = t.html();
 
     t.html(loader);
 
@@ -266,33 +259,38 @@ $(document).on("click","#bulletinButton",function(e){
 
     $.ajax({
 
-        url:origin + "/service/data",
+        url: registerNewsLetterUrl,
 
-        type:"POST",
+        type: "POST",
 
-        dataType:"json",
+        dataType: "json",
 
-        data:{"bulletin":bulletin, "type":"bulletin"},
+        data: {"email": email},
 
-        success:function(data){
+        success: function (data) {
+            console.log(data);
 
-            if(data.success){
+            if (data.success) {
 
-                getMessage(data.success,'success');
+                getMessage(data.success, 'success');
 
-                $("#bulletin").val("");
+                $("#email").val("");
 
-            }else{
+            } else {
 
-                getMessage(data.error,'error');
+                getMessage(data.message, 'error');
 
             }
 
         },
+        error: function(data) {
 
-        complete:function(){
+            getMessage(data.responseJSON.message, 'error');
+        },
 
-            // $("#bulletin").val("");
+        complete: function () {
+
+            // $("#email").val("");
 
             t.html(html);
 
@@ -307,54 +305,60 @@ $(document).on("click","#bulletinButton",function(e){
 });
 
 
+$(document).on("click", "#contactFormButton", function (e) {
 
-$(document).on("click","#contactFormButton",function(e){
+    let t = $(this);
 
-    var t = $(this);
-
-    var html = t.html();
+    let html = t.html();
 
     t.html(loader);
 
     t.prop("disabled", !0);
 
-    var name     = $("#name").val();
+    let name = $("#name").val();
 
-    var surname  = $("#lastname").val();
+    let surname = $("#lastname").val();
 
-    var email    = $("#email").val();
+    let email = $("#email").val();
 
-    var phone    = $("#phone").val();
+    let phone = $("#phone").val();
 
-    var message  = $("#message").val();
+    let message = $("#message").val();
 
     $.ajax({
 
-        url:origin + "/service/data",
+        url: origin + "/service/data",
 
-        type:"POST",
+        type: "POST",
 
-        dataType:"json",
+        dataType: "json",
 
-        data:{"name":name,"surname":surname,"email":email,"phone":phone,"message":message,"type":"contactform"},
+        data: {
+            "name": name,
+            "surname": surname,
+            "email": email,
+            "phone": phone,
+            "message": message,
+            "type": "contactform"
+        },
 
-        success:function(data){
+        success: function (data) {
 
-            if(data.success){
+            if (data.success) {
 
                 $("form").trigger("reset");
 
-                getMessage(data.success,'success');
+                getMessage(data.success, 'success');
 
-            }else{
+            } else {
 
-                getMessage(data.error,'error');
+                getMessage(data.error, 'error');
 
             }
 
         },
 
-        complete:function(){
+        complete: function () {
 
             t.html(html);
 
@@ -369,58 +373,68 @@ $(document).on("click","#contactFormButton",function(e){
 });
 
 
+$(document).on("click", "#send-getquote", function (e) {
 
-$(document).on("click","#send-getquote",function(e){
+    let t = $(this);
 
-    var t = $(this);
-
-    var html = t.html();
+    let html = t.html();
 
     t.html(loader);
 
     t.prop("disabled", !0);
 
-    var name     = $("#name").val();
+    let name = $("#q-name").val();
 
-    var surname  = $("#surname").val();
+    let surname = $("#q-surname").val();
 
-    var email    = $("#email").val();
+    let email = $("#q-email").val();
 
-    var phone    = $("#phone").val();
+    let phone = $("#q-phone").val();
 
-    var message  = $("#message").val();
+    let message = $("#q-message").val();
 
-    var product  = $("#product").val();
+    let product = $("#q-product").val();
 
-    var piece    = $("#piece").val();
+    let piece = $("#q-piece").val();
 
     $.ajax({
 
-        url:origin + "/service/data",
+        url: getFreeQuoteUrl,
 
-        type:"POST",
+        type: "POST",
 
-        dataType:"json",
+        dataType: "json",
 
-        data:{"name":name,"surname":surname,"email":email,"phone":phone,"product":product,"piece":piece,"message":message,"type":"getquote"},
+        data: {
+            "name": name,
+            "surname": surname,
+            "email": email,
+            "phone": phone,
+            "product_id": product,
+            "piece": piece,
+            "message": message,
+        },
 
-        success:function(data){
+        success: function (data) {
 
-            if(data.success){
+            if (data.success) {
 
                 $("form").trigger("reset");
 
-                getMessage(data.success,'success');
+                getMessage(data.success, 'success');
 
-            }else{
+            } else {
 
-                getMessage(data.error,'error');
+                getMessage(data.error, 'error');
 
             }
 
         },
+        error(data) {
+            getMessage(data.responseJSON.message, 'error')
+        },
 
-        complete:function(){
+        complete: function () {
 
             t.html(html);
 
@@ -435,8 +449,7 @@ $(document).on("click","#send-getquote",function(e){
 });
 
 
-
-function getMessage(message,type){
+function getMessage(message, type) {
 
     Swal.fire({
 
@@ -455,8 +468,7 @@ function getMessage(message,type){
 }
 
 
-
-$(document).click(function(e) {
+$(document).click(function (e) {
 
     const target = e.target;
 
@@ -469,8 +481,7 @@ $(document).click(function(e) {
 });
 
 
-
-$(document).click(function(e) {
+$(document).click(function (e) {
 
     const target = e.target;
 
@@ -483,12 +494,11 @@ $(document).click(function(e) {
 });
 
 
-
 // modal
 
 function modal(clickelement) {
 
-    $(clickelement).click(function() {
+    $(clickelement).click(function () {
 
         const target = $(this).data("target");
 
@@ -497,8 +507,7 @@ function modal(clickelement) {
     });
 
 
-
-    $('.modal-close').click(function() {
+    $('.modal-close').click(function () {
 
         const target = $(this).parent().parent().parent();
 
@@ -509,19 +518,15 @@ function modal(clickelement) {
 }
 
 
-
 modal(".infobar .offer-btn");
 modal(".mobile-nav-content-buttons .offer-btn");
 
 modal(".pd-info-buttons .offer-button");
 
 
-
-
-
 // Mobile Nav
 
-$('.mobile-nav-btn').click(function() {
+$('.mobile-nav-btn').click(function () {
 
     $('.mobile-nav').fadeIn();
 
@@ -531,7 +536,7 @@ $('.mobile-nav-btn').click(function() {
 
 });
 
-$('.mobile-nav-content span svg').click(function() {
+$('.mobile-nav-content span svg').click(function () {
 
     $('.mobile-nav-content').css('right', '-999px');
 
@@ -543,9 +548,9 @@ $('.mobile-nav-content span svg').click(function() {
 
 // Mobile Nav Drop
 
-$('.mobile-nav-drop-go').click(function() {
+$('.mobile-nav-drop-go').click(function () {
 
-    var display = $(this).children('.mobile-nav-drop').is(':visible') ? 1 : 0;
+    let display = $(this).children('.mobile-nav-drop').is(':visible') ? 1 : 0;
 
     if (display) {
 

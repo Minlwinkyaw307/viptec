@@ -18,7 +18,7 @@
 
                             {!! $blog->translations[0]->content !!}
 
-                            <iframe width="726" height="410" src="https://www.youtube.com/embed/y-TZXN8Uo8I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                            <iframe width="726" height="410" src="{{ $configs->tutorial_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
                         </div>
                     </div>
                     <x-front::recent-blogs></x-front::recent-blogs>

@@ -50,7 +50,7 @@ class ProductPackageType extends Model
      */
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class, 'id', 'product_id');
+        return $this->belongsTo(Product::class);
     }
 
     /**
@@ -60,7 +60,7 @@ class ProductPackageType extends Model
      */
     public function package_type(): BelongsTo
     {
-        return $this->belongsTo(PackageType::class, 'id', 'product_id');
+        return $this->belongsTo(PackageType::class);
     }
 
     /**

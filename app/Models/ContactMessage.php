@@ -32,6 +32,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|ContactMessage whereSurname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ContactMessage whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|ContactMessage onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ContactMessage withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ContactMessage withoutTrashed()
  */
 class ContactMessage extends Model
 {
