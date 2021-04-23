@@ -115,8 +115,8 @@
                 <li class="relative"><a class="block engintag_catalogue" target="_blank" href="{{ $configs->catalogueFileUrl }}">{{ __("Download Catalogue") }}</a>
                 </li>
                 <li class="relative">
-                    <form action="" class="" method="get">
-                        <input class="search-input" type="text" id="name" name="name" placeholder="{{ __('Search Products') }}">
+                    <form action="{{ localized_route('front.product.index', request()->query()) }}" class="" method="get">
+                        <input class="search-input" type="text" id="name" name="q" placeholder="{{ __('Search Products') }}">
                     </form>
                 </li>
             </ul>
@@ -172,6 +172,11 @@
                     <a class="flex items-center" href="{{ localized_route("front.contact") }}">{{ __("Contact") }}</a>
                 </li>
                 <li><a class="block engintag_catalogue" target="_blank" href="{{ $configs->catalogueFileUrl }}">{{ __('Download Catalogue') }}</a>
+                </li>
+                <li class="relative px-6 py-2">
+                    <form action="{{ localized_route('front.product.index', request()->query()) }}" class="" method="get">
+                        <input class="search-input py-4" type="text" id="name" name="q" placeholder="{{ __('Search Products') }}">
+                    </form>
                 </li>
             </ul>
         </div>

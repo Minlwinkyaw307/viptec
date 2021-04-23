@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\Product
@@ -55,6 +57,21 @@ class Product extends Model
     protected $guarded = [];
 
     /**
+     * Return Image Url
+     *
+     * @return string
+     */
+    public function getImageUrlAttribute(): string
+    {
+        if(Storage::exists($this->image))
+        {
+            return Storage::url($this->image);
+        }
+
+        return 'https://picsum.photos/287/300';
+    }
+
+    /**
      * Translation of current product
      *
      * @return HasMany
@@ -83,4 +100,15 @@ class Product extends Model
     {
         return $this->hasMany(ProductPackageType::class, 'product_id', 'id');
     }
+
+    /**
+     * Return belonged category
+     *
+     * @return BelongsTo
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }

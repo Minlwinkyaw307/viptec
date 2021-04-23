@@ -28,6 +28,10 @@ class ViewServiceProvider extends ServiceProvider
         View::composer([
             'front.index',
             'front.corporate',
+            'front.certificates',
+            'front.contact',
+            'front.blog.*',
+            'front.product.*',
         ], ConfigComposer::class);
     }
 }

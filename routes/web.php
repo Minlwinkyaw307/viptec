@@ -21,13 +21,16 @@ Route::name('front.')->group(function() {
     Route::multilingual('/corporate', [HomeController::class, 'corporate'])->name('corporate');
     Route::multilingual('/certificates', [HomeController::class, 'certificates'])->name('certificates');
     Route::multilingual('/contact', [HomeController::class, 'contact'])->name('contact');
+    Route::multilingual('/contact', [HomeController::class, 'post_contact'])->name('post_contact')->method('post');
 
     Route::name('blog.')->group(function() {
         Route::multilingual('/blog', [BlogController::class, 'index'])->name('index');
+        Route::multilingual('/blog/{slug}', [BlogController::class, 'detail'])->name('detail');
     });
 
     Route::name('product.')->group(function() {
         Route::multilingual('/product', [ProductController::class, 'index'])->name('index');
+        Route::multilingual('/product/{slug}', [ProductController::class, 'detail'])->name('detail');
     });
 });
 

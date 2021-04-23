@@ -53,6 +53,10 @@ use Illuminate\Support\Facades\Storage;
  * @property string $quota_background
  * @property-read string $quota_background_url
  * @method static \Illuminate\Database\Eloquent\Builder|SiteConfig whereQuotaBackground($value)
+ * @property string $fax
+ * @property string $location
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteConfig whereFax($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteConfig whereLocation($value)
  */
 class SiteConfig extends Model
 {

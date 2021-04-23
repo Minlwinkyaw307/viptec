@@ -20,6 +20,7 @@ class CreateBlogTranslationsTable extends Migration
             $table->foreignIdFor(\App\Models\Blog::class, 'blog_id')
                 ->constrained('blogs')->cascadeOnDelete();
             $table->string('title');
+            $table->string('slug');
             $table->longText('content');
             $table->softDeletes();
             $table->timestamps();

@@ -56,6 +56,3 @@
 
 <p>9) Use safety goggles to protect your eyes from broken blade edges.</p>
 
-<iframe width="726" height="410" src="https://www.youtube.com/embed/y-TZXN8Uo8I" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen=""></iframe>

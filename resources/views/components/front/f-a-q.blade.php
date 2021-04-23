@@ -1,4 +1,4 @@
-<div class="faq">
+<div class="faq" id="faq">
     <div class="container mx-auto">
         <div class="head text-center">
             <span class="block">Ürün Kullanımı</span>

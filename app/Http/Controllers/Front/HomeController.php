@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Front\ContactFormRequest;
 use App\Models\Certificate;
+use App\Models\ContactMessage;
 use App\Models\SiteConfig;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -55,7 +57,7 @@ class HomeController extends Controller
             ]);
         }])->first();
 
-        $certificates = Certificate::where('visible', true)->orderBy('order_no', 'DESC')->get();
+        $certificates = Certificate::where('visible', true)->orderBy('order_no')->get();
 
         return view('front.corporate', [
             'about' => $about,
@@ -70,7 +72,15 @@ class HomeController extends Controller
      */
     public function certificates()
     {
-        return view('front.certificates');
+        $certificates = Certificate::where('visible', true)
+            ->with(['translations' => function($query) {
+                get_current_translation($query);
+            }])
+            ->orderBy('order_no')->get();
+
+        return view('front.certificates', [
+            'certificates' => $certificates,
+        ]);
     }
 
     /**
@@ -80,16 +90,24 @@ class HomeController extends Controller
      */
     public function contact()
     {
-        return view('front.contact');
+        $location = SiteConfig::select('location')->first()->location;
+        return view('front.contact', [
+            'location' => $location,
+        ]);
     }
 
     /**
      * Saving Submitted Contact Information
      *
+     * @param ContactFormRequest $request
      * @return RedirectResponse
      */
-    public function post_contact(): RedirectResponse
+    public function post_contact(ContactFormRequest $request): RedirectResponse
     {
-        return redirect()->back();
+        $message = ContactMessage::create($request->all());
+        if($message) {
+            return redirect()->back()->with('success', __('Successfully Submitted. We will contact You Soon.'));
+        }
+        return redirect()->back()->withInput()->withErrors("Couldn't Save Submission. Please Try Again.");
     }
 }

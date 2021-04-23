@@ -944,13 +944,13 @@ img {
 }
 
 .about-certificates {
-    padding: 100px 0;
+    padding: 50px 0;
     background: #fff;
 }
 
 .about-certificate-slide {
     padding: 0 0 40px;
-    /* height: 600px; */
+     height: 400px;
 }
 
 .about-certificate-box {

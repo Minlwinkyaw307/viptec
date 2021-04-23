@@ -58,7 +58,4 @@
 <p>9) Kesim sırasında koruyucu gözlük kullanın. Kesim sırasında bıçak ucu istenmeyen şekilde kırılır ve etrafa sıçrarsa
     gözlük gözlerinizi olası kazalardan koruyacaktır.</p>
 
-<iframe width="726" height="410" src="https://www.youtube.com/embed/vTUlG5_qgNg" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen=""></iframe>
 

@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->foreignIdFor(\App\Models\Category::class, 'category_id')
                 ->constrained('categories')->cascadeOnDelete();
             $table->string('code', 100);
+            $table->string('image');
             $table->integer('length');
             $table->integer('width');
             $table->integer('weight')->nullable();

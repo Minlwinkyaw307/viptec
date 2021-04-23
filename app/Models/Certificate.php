@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -27,6 +28,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Certificate whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Certificate whereVisible($value)
  * @mixin \Eloquent
+ * @property-read string $image_url
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CertificateTranslation[] $translations
+ * @property-read int|null $translations_count
+ * @method static \Illuminate\Database\Query\Builder|Certificate onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Certificate withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Certificate withoutTrashed()
  */
 class Certificate extends Model
 {
@@ -45,5 +52,15 @@ class Certificate extends Model
         }
 
         return 'https://picsum.photos/670/1000';
+    }
+
+    /**
+     * Return translations of current certificate
+     *
+     * @return HasMany
+     */
+    public function translations(): HasMany
+    {
+        return $this->hasMany(CertificateTranslation::class, 'certificate_id', 'id');
     }
 }
