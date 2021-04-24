@@ -57,12 +57,43 @@ use Illuminate\Support\Facades\Storage;
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereImage($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductImage[] $product_images
  * @property-read int|null $product_images_count
+ * @property-read mixed $some_date
  */
 class Product extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+
+    protected $appends = ['imageUrl', 'some_date', 'status'];
+
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+
+    /**
+     * Return the status of the product with class and name
+     *
+     * @return array
+     */
+    public function getStatusAttribute(): array
+    {
+        if($this->deleted_at)
+        {
+            return [
+                'class' => 'error',
+                'name' => __("Deleted")
+            ];
+        } else if ($this->visible) {
+            return [
+                'class' => 'success',
+                'name' => __("Active")
+            ];
+        }
+        return [
+            'class' => 'waiting',
+            'name' => __('Hidden')
+        ];
+    }
 
     /**
      * Return Image Url

@@ -23,3 +23,23 @@ if(!function_exists('get_current_translation'))
         $query->where('language_id', request()->language->id);
     }
 }
+
+if(!function_exists('format_default_date'))
+{
+    /**
+     * @param $date
+     * @return string
+     */
+    function format_default_date($date): string
+    {
+        return $date->format(config('date.date_format'));
+    }
+}
+
+if(!function_exists('auth_check'))
+{
+    function auth_check(): bool
+    {
+        return true;
+    }
+}
