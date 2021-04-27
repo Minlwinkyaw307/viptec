@@ -55,6 +55,8 @@
 
 <script src="{{ asset('assets/panel/js/bundle.js') }}"></script>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script src="{{ asset('assets/panel/js/custom.js') }}"></script>
 
 @yield('bb-javascript')

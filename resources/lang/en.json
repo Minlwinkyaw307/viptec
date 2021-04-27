@@ -1,3 +1,4 @@
 {
-    "Home": "Home"
+    "Home": "Home",
+    "pagination_detail" : "Showing :from to :to of :total entries"
 }

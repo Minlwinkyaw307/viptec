@@ -838,13 +838,13 @@ img {
 
 .tabs {
   overflow: hidden;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
-  border-radius: 8px;
+  /*-webkit-border-radius: 8px;*/
+  /*-moz-border-radius: 8px;*/
+  /*-ms-border-radius: 8px;*/
+  /*-o-border-radius: 8px;*/
+  /*border-radius: 8px;*/
   background: #fff;
-  border: 1px solid #e2e8f0;
+  /*border: 1px solid #e2e8f0;*/
   -webkit-box-shadow: rgba(18, 25, 37, 0.05) 0px 1px 2px 0px;
   -moz-box-shadow: rgba(18, 25, 37, 0.05) 0px 1px 2px 0px;
   -ms-box-shadow: rgba(18, 25, 37, 0.05) 0px 1px 2px 0px;
@@ -893,10 +893,10 @@ img {
 }
 
 .tabs-content span {
-  margin: 0 0 20px;
-  color: #121925;
-  font-size: 0.9em;
-  font-weight: 700;
+  /*margin: 0 0 20px;*/
+  /*color: #121925;*/
+  /*font-size: 0.9em;*/
+  /*font-weight: 700;*/
 }
 
 .tabs-content p {
@@ -1491,4 +1491,75 @@ img {
   width: 300px;
   height: 100%;
   background: #fff;
+}
+
+.table-list tr .filter {
+    padding: 0 !important;
+}
+
+.product-page-number {
+    margin: 10px 0 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    -o-justify-content: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.product-page-number ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-page-number ul li {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.product-page-number ul li:nth-child(n+2) {
+    margin: 0 0 0 10px;
+}
+
+.product-page-number ul li a {
+    padding: 10px 15px;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    color: #0F5EF7;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 400;
+    transition: all .2s ease;
+    border: 1px solid rgba(159, 172, 189, .5);
+}
+
+.product-page-number ul li a {
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+}
+
+.product-page-number ul li a:hover {
+    color: #fff;
+    background: #0F5EF7;
+    border: 1px solid transparent;
 }

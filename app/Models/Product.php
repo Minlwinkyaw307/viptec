@@ -65,10 +65,13 @@ class Product extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['imageUrl', 'some_date', 'status'];
+    protected $appends = ['imageUrl', 'status'];
+
+    protected $casts = [
+        'visible' => 'boolean',
+    ];
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
-
 
     /**
      * Return the status of the product with class and name
@@ -83,7 +86,7 @@ class Product extends Model
                 'class' => 'error',
                 'name' => __("Deleted")
             ];
-        } else if ($this->visible) {
+        } else if ($this->attributes['visible']) {
             return [
                 'class' => 'success',
                 'name' => __("Active")
@@ -168,6 +171,42 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Return all the statuses of product
+     *
+     * @return array
+     */
+    public static function product_statues(): array
+    {
+        return [
+            '0' => __('All Options'),
+            '1' => __('Hidden'),
+            '2' => __("Active"),
+            '3' => __("Deleted")
+        ];
+    }
+
+
+    // Scopes
+
+    public function scopeProductFilter($query, $filter) {
+        return $query->whereHas('translations', function($query) use ($filter) {
+            $query->where('title', 'like', "%$filter%");
+        });
+    }
+
+    public function scopeStatusFilter($query, $filter) {
+        if($filter == 1)
+        {
+            return $query->where('visible', false);
+        }else if($filter == 2)
+        {
+            return $query->where('visible', true);
+        } else {
+            return $query->where('deleted_at', '!=', null);
+        }
     }
 
 }

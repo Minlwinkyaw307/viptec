@@ -34,7 +34,7 @@ class ProductController extends Controller
         $products = $products->with(['translations' => function($query) {
             get_current_translation($query);
             $query->select(['id', 'language_id', 'product_id', 'title', 'slug']);
-        }])->orderBy('created_at')->paginate($request->get('per_page') ?? 27);
+        }])->orderBy('created_at')->paginate($request->get('per_page') ?? 1);
 
         return view('front.product.index', [
             'products' => $products,

@@ -38,5 +38,6 @@
     "General": "Genel",
     "VIP-TEC - 2020 © All Rights Reserved": "VIP-TEC - 2020 © Tüm Hakları Saklıdır",
     "View Products": "ÜRÜNLERİ İNCELE",
-    "Title": "Title"
+    "Title": "Title",
+    "pagination_detail" : "Showing :from to :to of :total entries"
 }
