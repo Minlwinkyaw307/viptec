@@ -58,7 +58,10 @@ class Category extends Model
         return $this->hasMany(Product::class, 'category_id', 'id');
     }
 
-    public static function category_options()
+    /**
+     * @return array
+     */
+    public static function category_options(): array
     {
         $result = ['0' => __("All Options")];
         return array_merge($result , Category::select(['id', 'deleted_at'])->with(['translations' => function($query) {

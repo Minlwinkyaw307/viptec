@@ -60,6 +60,11 @@ class SelectInput extends Component
     public $disabled;
 
     /**
+     * @var boolean
+     */
+    public $multiple;
+
+    /**
      * Create a new component instance.
      *
      * @param string $name
@@ -77,7 +82,7 @@ class SelectInput extends Component
                                 $options, ?string $value, $type='text',
                                 $placeholder='Please Fill The Form',
                                 $id=null, $input_class=null,
-                                $required=true, $disabled=false)
+                                $required=true, $disabled=false, $multiple=false)
     {
         $this->name = $name;
 
@@ -101,6 +106,8 @@ class SelectInput extends Component
         $this->required = $required;
 
         $this->disabled = $disabled;
+
+        $this->multiple = $multiple;
     }
 
     /**

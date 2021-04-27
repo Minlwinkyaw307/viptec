@@ -39,5 +39,7 @@
     "VIP-TEC - 2020 © All Rights Reserved": "VIP-TEC - 2020 © Tüm Hakları Saklıdır",
     "View Products": "ÜRÜNLERİ İNCELE",
     "Title": "Title",
-    "pagination_detail" : "Showing :from to :to of :total entries"
+    "pagination_detail" : "Showing :from to :to of :total entries",
+    "Success": "Başarı",
+    "Successfully Added New Images": "Yeni Görseller Başarıyla Eklendi"
 }

@@ -1,7 +1,7 @@
 <div {{ $attributes->class(['form-element w-full']) }}>
 
     @if($show_preview && $previewable)
-        <div class="w-100 py-2">
+        <div class="w-100">
             @if(!$multiple)
                 <img id="{{ $imageId }}" src="{{ $old ?? '' }}" alt="" class="img-responsive"
                      style="max-height: 100px;">

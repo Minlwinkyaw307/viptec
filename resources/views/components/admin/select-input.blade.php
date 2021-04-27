@@ -9,6 +9,7 @@
         name="{{ $name }}"
         {{ $required ? 'required' : '' }}
         {{ $disabled ? 'disabled' : '' }}
+        {{ $multiple ? 'multiple' : '' }}
     >
         <option value="">{{ $placeholder }}</option>
         @foreach($options as $option=>$value)

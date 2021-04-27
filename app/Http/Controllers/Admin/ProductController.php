@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductIndexRequest;
 use App\Models\Category;
+use App\Models\PackageType;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
@@ -72,6 +73,7 @@ class ProductController extends Controller
     {
         return view('admin.product.create-edit' , [
             'category_options' => Category::category_options(),
+            'package_type_options' => PackageType::package_type_options(),
         ]);
     }
 

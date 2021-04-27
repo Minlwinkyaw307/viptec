@@ -57,4 +57,18 @@ class PackageType extends Model
     {
         return $this->hasMany(PackageTypeTranslation::class, 'package_type_id', 'id');
     }
+
+    /**
+     * @return array
+     */
+    public static function package_type_options(): array
+    {
+        $result = ['0' => __("All Options")];
+        return array_merge($result , PackageType::select(['id', 'deleted_at'])->with(['translations' => function($query) {
+            get_current_translation($query);
+            $query->select(['id', 'language_id', 'package_type_id', 'name']);
+        }])->withTrashed()->get()->mapWithKeys(function($package) {
+            return [$package->id => $package->translations[0]->name];
+        })->toArray());
+    }
 }

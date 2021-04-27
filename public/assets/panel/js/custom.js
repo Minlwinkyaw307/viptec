@@ -3,26 +3,39 @@ window.addEventListener('load', (event) => {
         window.location.href = e.currentTarget.dataset.link;
     });
 
-    $('.delete-product-image-btn').on('click', deleteProductImageEvent);
+    $('.delete-product-image-btn').on('click', deleteProductDetailEvent);
+    $('.delete-product-package-btn').on('click', deleteProductDetailEvent);
+    $('.add-new-image-and-thumb').on('click', addImageAndThumbnailElements);
+    $('.add-new-product-feature').on('click', addNewFeature);
 });
 
-function deleteProductImageEvent(e) {
+function deleteProductDetailEvent(e) {
     let id = e.currentTarget.dataset.id;
     let link = e.currentTarget.dataset.link;
     let csrf = e.currentTarget.dataset.csrf;
+    let name = e.currentTarget.dataset.name;
 
-    deleteProductImageAndRemoveElement(link, csrf, id, deleteMessages);
+    deleteProductImageAndRemoveElement(link, csrf, id, name, deleteMessages);
 }
 
-function makeid(length) {
-    let result           = [];
-    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+function makeId(length) {
+    let result = [];
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
+    for (let i = 0; i < length; i++) {
         result.push(characters.charAt(Math.floor(Math.random() *
             charactersLength)));
     }
     return result.join('');
+}
+
+function selectRefresh(id) {
+    console.log($('#' + id))
+    $('#' + id).select2({
+        tags: true,
+        allowClear: true,
+        width: '100%'
+    });
 }
 
 function previewImages(imageInputId, imageTagId, isMultiple) {
@@ -45,47 +58,116 @@ function previewImages(imageInputId, imageTagId, isMultiple) {
 }
 
 function addImageAndThumbnailElements() {
-    let imgId1 = makeid(10);
-    let imgId2 = makeid(10);
-    let imageId = makeid(10);
-    let thumbnailId = makeid(10);
-    let id = makeid(3);
-    $('#image-wrapper').append(`<div id="image-wrapper-${id}">
-   <div class="form-element w-full">
+    let imgId1 = makeId(10);
+    let imgId2 = makeId(10);
+    let imageId = makeId(10);
+    let thumbnailId = makeId(10);
+    let id = makeId(3);
+    $('#image-wrapper').append(`
+<div id="image-wrapper-${id}">
+
+<div class="flex flex-row" >
+    <input type="hidden" value="${id}" name="image_ids[]">
+   <div class="form-element w-1/2">
       <div class="w-100 py-2">
          <img id="${imgId1}" src="" alt="" class="img-responsive" style="max-height: 100px;">
       </div>
-      <script>
-         window.addEventListener('load', () => {
-             previewImages("${thumbnailId}", "${imgId1}", false)
-         })
-      </script>
       <label for="${thumbnailId}">Thumbnail  <span class="text-danger">*</span> </label>
       <input type="file" multiple="" name="thumbnails[]" value="" required="" class="form-control " id="${thumbnailId}">
    </div>
-   <div class="form-element w-full">
+   <div class="form-element w-1/2">
       <div class="w-100 py-2">
          <img id="${imgId2}" src="" alt="" class="img-responsive" style="max-height: 100px;">
       </div>
-      <script>
-         window.addEventListener('load', () => {
-             previewImages("${imageId}", "${imgId2}", false)
-         })
-      </script>
       <label for="${imageId}">Image  <span class="text-danger">*</span> </label>
       <input type="file" multiple="" name="images[]" value="" required="" class="form-control " id="${imageId}" placeholder="Please Fill The Form">
    </div>
-   <div class="form-element">
-      <button type="button" data-id="${id}" class="button-error focus:outline-none delete-product-image-btn">Create New Item</button>
+</div>
+<div class="form-element">
+      <button type="button" data-id="${id}" data-name="image-wrapper-" class="button-error focus:outline-none delete-product-image-btn">${langAddNewImages}</button>
    </div>
    <hr>
-</div>`);
+   </div>
+`);
+    previewImages(imageId, imgId2, false)
+    previewImages(thumbnailId, imgId1, false)
+
     let buttons = $('.delete-product-image-btn');
     buttons.off('click');
-    buttons.on('click', deleteProductImageEvent);
+    buttons.on('click', deleteProductDetailEvent);
+
+    Swal.fire(
+        langSuccessPopUp['title'],
+        langSuccessPopUp['description'],
+        'success'
+    )
 }
 
-function deleteProductImageAndRemoveElement(link, csrf, id, messages) {
+function objectToOptions()
+{
+
+}
+
+function addNewFeature() {
+    let amountId = makeId(10);
+    let previewImageId = makeId(10);
+    let imageId = makeId(10);
+    let id = makeId(3);
+    let selectId = makeId(3);
+
+    $('#feature-wrapper').append(`
+        <div id="feature-wrapper-${id}">
+   <input type="hidden" value="1" name="feature_ids[]">
+   <div class="form-element w-full">
+      <label class="block" for="IovMh55MaKt3bBBO">Feature  <span class="text-danger">*</span> </label>
+
+
+      <select id="${selectId}" class="select2-area select2-hidden-accessible" name="features[]" required>
+         ${objectToOptions()}
+         <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+   </div>
+   <div class="flex flex-row">
+      <div class="form-element w-full w-1/2">
+         <label class="block" for="${amountId}">Amount </label>
+         <input type="number" name="amounts[]" value="" class="form-control " id="${amountId}" placeholder="Please Enter Package Amount">
+      </div>
+      <div class="form-element w-full w-1/2">
+         <div class="w-100">
+            <img id="${previewImageId}" src="" alt="" class="img-responsive" style="max-height: 100px;">
+         </div>
+         <label for="${imageId}">Image  <span class="text-danger">*</span> </label>
+         <input type="file" multiple="" name="package_images[]" value="" required="" class="form-control " id="${imageId}" placeholder="Please Fill The Form">
+      </div>
+   </div>
+   <div class="form-element">
+      <button type="button" data-id="${id}" data-name="feature-wrapper-" data-name="feature-wrapper-" class="button-error focus:outline-none delete-product-package-btn">
+      Delete Image
+      </button>
+   </div>
+   <hr>
+</div>
+    `);
+
+    previewImages(imageId, previewImageId, false);
+
+    let buttons = $('.delete-product-package-btn');
+    buttons.off('click');
+    buttons.on('click', deleteProductDetailEvent);
+
+    selectRefresh(selectId);
+
+    Swal.fire(
+        langSuccessPopUp['title'],
+        langSuccessPopUp['description'],
+        'success'
+    )
+}
+
+function deleteProductImageAndRemoveElement(link, csrf, id, name, messages) {
+    console.log($(`#${name + id}`))
+    console.log((`#${name + id}`))
     Swal.fire({
         title: messages['title'],
         showDenyButton: true,
@@ -94,26 +176,23 @@ function deleteProductImageAndRemoveElement(link, csrf, id, messages) {
         denyButtonText: messages['cancel'],
     }).then((result) => {
         if (result.isConfirmed) {
-            if(link) {
+            if (link) {
                 $.ajax({
                     url: link,
                     type: 'DELETE',
                     data: {
                         _token: csrf,
                     },
-                    success: function(result) {
-                        if(result.result) {
-                            $('#image-wrapper-' + id).remove();
+                    success: function (result) {
+                        if (result.result) {
+                            $(`#${name + id}`).remove();
                         }
                     }
                 });
             } else {
-                if(result.result) {
-                    $('#image-wrapper-' + id).remove();
-                }
+                $(`#${name + id}`).remove();
             }
-
-            Swal.fire('Saved!', '', 'success')
+            Swal.fire(langSuccessPopUp['title'], '', 'success')
         }
     })
 }
