@@ -8,12 +8,19 @@ use App\Models\Category;
 use App\Models\Feature;
 use App\Models\PackageType;
 use App\Models\Product;
+use App\Models\ProductFeature;
+use App\Models\ProductImage;
+use App\Models\ProductPackageType;
+use App\Models\ProductTranslation;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -75,18 +82,98 @@ class ProductController extends Controller
         return view('admin.product.create-edit' , [
             'category_options' => Category::category_options(),
             'package_type_options' => PackageType::package_type_options(),
+            'feature_options' => Feature::feature_options(),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws \Throwable
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         dd($request->all());
+        $params = $request->only([
+            'code',
+            'visible',
+            'category_id',
+            'length',
+            'width',
+            'thickness',
+        ]);
+
+        \DB::transaction(function() use($request, $params) {
+            if($request->hasFile('image')) {
+                // Storing Product
+                $params['image'] = \Storage::putFile('products', $request->file('image'));
+
+                $product = Product::create($params);
+
+
+                // Storing Product's Translations
+                $translations = language_data_collector(['color', 'title', 'description'], ['product_id' => $product->id]);
+                $translations = $translations->map(function($translation) {
+                    $translation['slug'] = Str::slug($translation['title']);
+                    return $translation;
+                });
+
+                ProductTranslation::insert($translations->toArray());
+
+                // Storing Product's Features
+                $features = collect($request->get('feature_ids'));
+
+                $features = $features->map(function($feature) use ($product) {
+                    return [
+                        'product_id' => $product->id,
+                        'feature_id' => $feature,
+                    ];
+                });
+
+                ProductFeature::insert($features->toArray());
+
+                // Storing Product's Package Type
+                if(count($request->get('packages')) > 0)
+                {
+                    $package_images = $request->file('package_images');
+                    $packages = $request->get('packages');
+
+                    foreach($packages as $index=>$package)
+                    {
+                        $image = null;
+                        if(isset($package_images[$index]) && !is_null($package_images[$index]))
+                        {
+                            $image = \Storage::putFile(ProductPackageType::BASE_LOCATIONS, $package_images[$index]);
+                        }
+                        dump(ProductPackageType::create([
+                            'product_id' => $product->id,
+                            'package_type_id' => $package,
+                            'amount' => $request->get('amounts')[$index],
+                            'image' => $image
+                        ]));
+                    }
+                }
+
+                // Storing Product's Images
+                $images = $request->file('images');
+                $thumbnails = $request->file('thumbnails');
+
+                foreach($images as $index=>$image)
+                {
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'image' => Storage::putFile(ProductImage::BASE_LOCATION, $image),
+                        'thumbnail' => Storage::putFile(ProductImage::BASE_LOCATION, $thumbnails[$index]),
+                    ]);
+                }
+            }
+
+            return true;
+        });
+
+        return redirect()->route('admin.product.index')->with('success', __("Successfully Created"));
     }
 
     /**
@@ -132,7 +219,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return Response
      */

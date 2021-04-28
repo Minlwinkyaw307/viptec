@@ -73,14 +73,14 @@ function addImageAndThumbnailElements() {
          <img id="${imgId1}" src="" alt="" class="img-responsive" style="max-height: 100px;">
       </div>
       <label for="${thumbnailId}">Thumbnail  <span class="text-danger">*</span> </label>
-      <input type="file" multiple="" name="thumbnails[]" value="" required="" class="form-control " id="${thumbnailId}">
+      <input type="file" multiple="" name="thumbnails[]" value="" required class="form-control " id="${thumbnailId}">
    </div>
    <div class="form-element w-1/2">
       <div class="w-100 py-2">
          <img id="${imgId2}" src="" alt="" class="img-responsive" style="max-height: 100px;">
       </div>
       <label for="${imageId}">Image  <span class="text-danger">*</span> </label>
-      <input type="file" multiple="" name="images[]" value="" required="" class="form-control " id="${imageId}" placeholder="Please Fill The Form">
+      <input type="file" multiple="" name="images[]" value="" required class="form-control " id="${imageId}" placeholder="Please Fill The Form">
    </div>
 </div>
 <div class="form-element">
@@ -119,7 +119,7 @@ function addNewPackage() {
 
     $('#package-wrapper').append(`
         <div id="package-wrapper-${id}">
-   <input type="hidden" value="1" name="package_id[]">
+   <input type="hidden" value="${id}" name="package_id[]">
    <div class="form-element w-full">
       <label class="block" for="IovMh55MaKt3bBBO">Package  <span class="text-danger">*</span> </label>
 

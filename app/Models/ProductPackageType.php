@@ -43,6 +43,8 @@ class ProductPackageType extends Model
 
     protected $guarded = [];
 
+    public CONST BASE_LOCATIONS = 'package_types';
+
     /**
      * Belonged Product
      *

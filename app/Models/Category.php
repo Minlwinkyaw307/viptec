@@ -59,16 +59,23 @@ class Category extends Model
     }
 
     /**
+     * @param bool $isFilter
      * @return array
      */
-    public static function category_options(): array
+    public static function category_options($isFilter=false): array
     {
-        $result = ['0' => __("All Options")];
-        return array_merge($result , Category::select(['id', 'deleted_at'])->with(['translations' => function($query) {
+        $result = [];
+        if(!$isFilter)
+        {
+            $result = ['0' => __("All Options")];
+        }
+        $categories = Category::select(['id', 'deleted_at'])->with(['translations' => function($query) {
             get_current_translation($query);
             $query->select(['id', 'language_id', 'category_id', 'name']);
         }])->withTrashed()->get()->mapWithKeys(function($category) {
             return [$category->id => $category->translations[0]->name];
-        })->toArray());
+        });
+
+        return collect($result)->union(collect($categories))->toArray();
     }
 }

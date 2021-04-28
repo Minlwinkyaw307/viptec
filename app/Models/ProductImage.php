@@ -41,6 +41,8 @@ class ProductImage extends Model
     protected $guarded = [];
 
     protected $appends = ['imageUrl', 'thumbnailUrl'];
+
+    public CONST BASE_LOCATION = 'products';
     /**
      * Return Image Url
      *

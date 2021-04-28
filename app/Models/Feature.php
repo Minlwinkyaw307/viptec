@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 /**
  * App\Models\Feature
@@ -59,16 +60,22 @@ class Feature extends Model
     }
 
     /**
+     * @param bool $isFilter
      * @return array
      */
-    public static function feature_options(): array
+    public static function feature_options($isFilter=false): array
     {
-        $result = ['0' => __("All Options")];
-        return array_merge($result , Feature::select(['id', 'deleted_at'])->with(['translations' => function($query) {
+        $result = [];
+        if($isFilter) {
+            $result = ['0' => __("All Options")];
+        }
+        $features = Feature::select(['id', 'deleted_at'])->with(['translations' => function($query) {
             get_current_translation($query);
             $query->select(['id', 'language_id', 'feature_id', 'name']);
         }])->withTrashed()->get()->mapWithKeys(function($package) {
             return [$package->id => $package->translations[0]->name];
-        })->toArray());
+        });
+
+        return collect($result)->union($features)->toArray();
     }
 }
