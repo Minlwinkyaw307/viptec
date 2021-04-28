@@ -25,7 +25,7 @@ class SelectInput extends Component
     public $options;
 
     /**
-     * @var string
+     * @var string|array|null
      */
     public $value;
 
@@ -70,16 +70,17 @@ class SelectInput extends Component
      * @param string $name
      * @param string|null $label
      * @param $options
-     * @param string|null $value
+     * @param string|array|null $value
      * @param string|null $type
      * @param string|null $placeholder
      * @param null|string $id
      * @param null|string $input_class
      * @param bool $required
      * @param bool $disabled
+     * @param bool $multiple
      */
     public function __construct(string $name, ?string $label,
-                                $options, ?string $value, $type='text',
+                                $options, $value, $type='text',
                                 $placeholder='Please Fill The Form',
                                 $id=null, $input_class=null,
                                 $required=true, $disabled=false, $multiple=false)
@@ -120,7 +121,7 @@ class SelectInput extends Component
     {
         if($option == null && $this->value == '')
             return 'selected';
-        if($option == $this->value)
+        if($this->multiple ? in_array($option, $this->value) : $option == $this->value)
             return 'selected';
         return '';
     }

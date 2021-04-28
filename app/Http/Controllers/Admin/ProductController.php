@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductIndexRequest;
 use App\Models\Category;
+use App\Models\Feature;
 use App\Models\PackageType;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -99,15 +100,33 @@ class ProductController extends Controller
         //
     }
 
+
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param $id
+     * @return Application|Factory|View
      */
     public function edit($id)
     {
-        //
+        $product = Product::where('id', $id)->with(['translations', 'category.translations' => function($query) {
+            get_current_translation($query);
+        }, 'product_features.feature.translations' => function($query) {
+            get_current_translation($query);
+        }, 'product_package_types.package_type.translations' => function($query) {
+            get_current_translation($query);
+        }, 'product_images', 'product_compatibles.blade:id,code'])
+            ->where('visible', true)->firstOrFail();
+
+//        return $product->product_features->pluck('feature.id');
+
+        return view('admin.product.create-edit', [
+            'product' => $product,
+            'title' => $product->translations[0]->title,
+            'description' => $product->translations[0]->description,
+            'meta_image' => $product->imageUrl,
+            'category_options' => Category::category_options(),
+            'package_type_options' => PackageType::package_type_options(),
+            'feature_options' => Feature::feature_options(),
+        ]);
     }
 
     /**

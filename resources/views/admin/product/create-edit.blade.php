@@ -38,7 +38,7 @@
                                 aria-controls="tabs-3" aria-labelledby="ui-id-3" aria-selected="false"
                                 aria-expanded="false"><a class="flex items-center ui-tabs-anchor" href="#tabs-3"
                                                          role="presentation" tabindex="-1" id="ui-id-3">
-                                    {{ __("Features") }}</a></li>
+                                    {{ __("Packages") }}</a></li>
                         </ul>
                     </div>
                     <form action="{{ route('admin.product.store') }}" method="post">
@@ -52,37 +52,37 @@
                                         <x-admin::file-input
                                             :label="__('Image')"
                                             name="visible"
-                                            :old="null"
+                                            :old="isset($product) ? $product->imageUrl : null"
                                         ></x-admin::file-input>
 
                                         <x-admin::text-input
                                             :label="__('Code')"
                                             name="code"
-                                            :value="old('code')"
+                                            :value="old('code') ?? isset($product) ? $product->code : null"
                                             :placeholder="__('Please Enter Product Code')"
                                             :error="$errors->first('code') ?? null"
                                         ></x-admin::text-input>
 
                                         <x-admin::select-input
                                             name="category_id"
-                                            value="old('category_id')"
+                                            :value="old('category_id') ?? isset($product) ? $product->category_id : null"
                                             :options="$category_options"
                                             :label="__('Category')"
                                             id="category_id"
                                         ></x-admin::select-input>
 
                                         <x-admin::text-input
-                                            :label="__('Name') . ' (' . __('Turkish') . ')'"
+                                            :label="__('Title') . ' (' . __('Turkish') . ')'"
                                             name="tr_name"
-                                            :value="old('tr_name')"
+                                            :value="old('tr_name') ?? isset($product) ? $product->translations->where('language_id', 1)->first()->title : null"
                                             :placeholder="__('Please Enter Product Name')"
                                             :error="$errors->first('tr_name') ?? null"
                                         ></x-admin::text-input>
 
                                         <x-admin::text-input
-                                            :label="__('Name') . ' (' . __('English') . ')'"
+                                            :label="__('Title') . ' (' . __('English') . ')'"
                                             name="en_english"
-                                            :value="old('en_name')"
+                                            :value="old('en_name') ?? isset($product) ? $product->translations->where('language_id', 2)->first()->title : null"
                                             :placeholder="__('Please Enter Product Name')"
                                             :error="$errors->first('en_name') ?? null"
                                         ></x-admin::text-input>
@@ -90,27 +90,27 @@
                                         <x-admin::text-input
                                             :label="__('Description') . ' (' . __('Turkish') . ')'"
                                             name="tr_description"
-                                            :value="old('tr_description')"
+                                            :value="old('tr_description') ?? isset($product) ? $product->translations->where('language_id', 1)->first()->description : null"
                                             :placeholder="__('Please Enter Product Description')"
                                             :error="$errors->first('tr_description') ?? null"
                                             :textarea="true"
-                                            :rows="5"
+                                            :rows="7"
                                         ></x-admin::text-input>
 
                                         <x-admin::text-input
                                             :label="__('Description') . ' (' . __('English') . ')'"
                                             name="tr_description"
-                                            :value="old('tr_description')"
+                                            :value="old('en_description') ?? isset($product) ? $product->translations->where('language_id', 2)->first()->description : null"
                                             :placeholder="__('Please Enter Product Description')"
                                             :error="$errors->first('tr_description') ?? null"
                                             :textarea="true"
-                                            :rows="5"
+                                            :rows="7"
                                         ></x-admin::text-input>
 
                                         <x-admin::text-input
                                             :label="__('Length') . ' (mm)'"
                                             name="length"
-                                            :value="old('length')"
+                                            :value="old('length') ?? isset($product) ? $product->length : null"
                                             :placeholder="__('Please Enter Product Length')"
                                             :error="$errors->first('length') ?? null"
                                             type="number"
@@ -119,7 +119,7 @@
                                         <x-admin::text-input
                                             :label="__('Width') . ' (mm)'"
                                             name="width"
-                                            :value="old('width')"
+                                            :value="old('width') ?? isset($product) ? $product->width : null"
                                             :placeholder="__('Please Enter Product Width')"
                                             :error="$errors->first('width') ?? null"
                                             type="number"
@@ -128,7 +128,7 @@
                                         <x-admin::text-input
                                             :label="__('Thickness') . ' (mm)'"
                                             name="thickness"
-                                            :value="old('thickness')"
+                                            :value="old('thickness') ?? isset($product) ? $product->thickness : null"
                                             :placeholder="__('Please Enter Product Thickness')"
                                             :error="$errors->first('thickness') ?? null"
                                             type="number"
@@ -136,10 +136,20 @@
                                         ></x-admin::text-input>
 
                                         <x-admin::select-input
+                                            :label="__('Features')"
+                                            name="feature_ids[]"
+                                            :options="$feature_options"
+                                            :value="old('feature_ids') ?? (isset($product) ? $product->product_features->pluck('feature.id')->toArray() : [])"
+                                            id="feature_ids"
+                                            :required="true"
+                                            :multiple="true"
+                                        ></x-admin::select-input>
+
+                                        <x-admin::select-input
                                             :label="__('Active?')"
                                             name="visible"
                                             :options="[__('No'), __('Yes')]"
-                                            :value="old('visible')"
+                                            :value="old('visible') ?? isset($product) ? $product->visible : true"
                                             id="visible"
                                             :required="true"
                                         ></x-admin::select-input>
@@ -156,39 +166,45 @@
                                     <div class="w-4/6" id="image-wrapper">
                                         <div class="form-element">
                                             <button type="button"
-                                                    class="button-first focus:outline-none add-new-image-and-thumb" data-link="">Create New Item
+                                                    class="button-first focus:outline-none add-new-image-and-thumb"
+                                                    data-link="">Create New Item
                                             </button>
                                         </div>
-                                        <div id="image-wrapper-1">
-                                            <input type="hidden" value="1" name="image_ids[]">
-                                            <div class="flex flex-row">
-                                                <x-admin::file-input
-                                                    :label="__('Thumbnail')"
-                                                    name="thumbnails[]"
-                                                    class="w-1/2"
-                                                    :old="null"
-                                                    :required="true"
-                                                ></x-admin::file-input>
-                                                <x-admin::file-input
-                                                    :label="__('Image')"
-                                                    class="w-1/2"
-                                                    name="images[]"
-                                                    :old="null"
-                                                    :required="true"
-                                                ></x-admin::file-input>
-                                            </div>
-                                            <div class="form-element">
-                                                <button type="button"
-                                                        data-link="{{ route('admin.product.destroy', ['product' => 1]) }}"
-                                                        data-csrf="{{ csrf_token() }}"
-                                                        data-id="1"
-                                                        data-name="image-wrapper-"
-                                                        class="button-error focus:outline-none delete-product-image-btn">
-                                                    {{ __("Delete Image") }}
-                                                </button>
-                                            </div>
-                                            <hr>
-                                        </div>
+                                        @if($product)
+                                            @foreach($product->product_images as $product_image)
+                                                <div id="image-wrapper-{{ $product_image->id }}">
+                                                    <input type="hidden" value="{{ $product_image->id }}"
+                                                           name="image_ids[]">
+                                                    <div class="flex flex-row">
+                                                        <x-admin::file-input
+                                                            :label="__('Thumbnail')"
+                                                            name="thumbnails[]"
+                                                            class="w-1/2"
+                                                            :old="$product_image->thumbnailUrl"
+                                                            :required="true"
+                                                        ></x-admin::file-input>
+                                                        <x-admin::file-input
+                                                            :label="__('Image')"
+                                                            class="w-1/2"
+                                                            name="images[]"
+                                                            :old="$product_image->imageUrl"
+                                                            :required="true"
+                                                        ></x-admin::file-input>
+                                                    </div>
+                                                    <div class="form-element">
+                                                        <button type="button"
+                                                                data-link="{{ route('admin.product_image.destroy', ['id' => $product_image->id]) }}"
+                                                                data-csrf="{{ csrf_token() }}"
+                                                                data-id="1"
+                                                                data-name="image-wrapper-"
+                                                                class="button-error focus:outline-none delete-product-image-btn">
+                                                            {{ __("Delete Image") }}
+                                                        </button>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+                                            @endforeach
+                                        @endif
                                     </div>
                                     <div class="w-1/6"></div>
                                 </div>
@@ -199,54 +215,57 @@
                                 <div class="w-full flex flex-row items-center justify-between">
                                     <div class="w-1/6"></div>
                                     <div class="w-4/6">
-                                        <div class="form-element" id="feature-wrapper">
+                                        <div class="form-element" id="package-wrapper">
                                             <button type="button"
-                                                    class="button-first focus:outline-none add-new-product-feature" data-link="">Create New Item
+                                                    class="button-first focus:outline-none add-new-product-package"
+                                                    data-link="">Create New Item
                                             </button>
+                                            @if($product)
+                                                @foreach($product->product_package_types as $package)
+                                                    <div id="package-wrapper-{{ $package->id }}">
+                                                        <input type="hidden" value="{{ $package->id }}" name="package_ids[]">
+                                                        <x-admin::select-input
+                                                            :label="__('Package')"
+                                                            name="packages[]"
+                                                            :options="$package_type_options"
+                                                            :value="old('packages')[$loop->index] ?? $package->package_type_id"
+                                                            :required="true"
+                                                        ></x-admin::select-input>
 
-                                            <div id="feature-wrapper-1">
-                                                <input type="hidden" value="1" name="feature_ids[]">
-                                                <x-admin::select-input
-                                                    :label="__('Feature')"
-                                                    name="features[]"
-                                                    :options="[__('No'), __('Yes')]"
-                                                    :value="old('features')"
-                                                    :required="true"
-                                                ></x-admin::select-input>
+                                                        <div class="flex flex-row">
+                                                            <x-admin::file-input
+                                                                :label="__('Image')"
+                                                                name="package_images[]"
+                                                                class="w-1/2"
+                                                                :old="$package->imageUrl"
+                                                                :required="true"
+                                                            ></x-admin::file-input>
 
-                                                <div class="flex flex-row">
-                                                    <x-admin::text-input
-                                                        :label="__('Amount')"
-                                                        name="amounts[]"
-                                                        class="w-1/2"
-                                                        :value="old('amounts')"
-                                                        :placeholder="__('Please Enter Pacakge Amount')"
-                                                        :error="$errors->first('amounts') ?? null"
-                                                        type="number"
-                                                        :required="false"
-                                                    ></x-admin::text-input>
-
-                                                    <x-admin::file-input
-                                                        :label="__('Image')"
-                                                        name="package_images[]"
-                                                        class="w-1/2"
-                                                        :old="null"
-                                                        :required="true"
-                                                    ></x-admin::file-input>
-                                                </div>
-                                                <div class="form-element">
-                                                    <button type="button"
-                                                            data-link="{{ route('admin.product.destroy', ['product' => 1]) }}"
-                                                            data-csrf="{{ csrf_token() }}"
-                                                            data-id="1"
-                                                            data-name="feature-wrapper-"
-                                                            class="button-error focus:outline-none delete-product-package-btn">
-                                                        {{ __("Delete Image") }}
-                                                    </button>
-                                                </div>
-                                                <hr>
-                                            </div>
-
+                                                            <x-admin::text-input
+                                                                :label="__('Amount')"
+                                                                name="amounts[]"
+                                                                class="w-1/2"
+                                                                :value="old('amount')[$loop->index] ?? $package->amount"
+                                                                :placeholder="__('Please Enter Pacakge Amount')"
+                                                                :error="$errors->first('amounts') ?? null"
+                                                                type="number"
+                                                                :required="false"
+                                                            ></x-admin::text-input>
+                                                        </div>
+                                                        <div class="form-element">
+                                                            <button type="button"
+                                                                    data-link="{{ route('admin.product-package-type.destroy', ['id' => $package->id]) }}"
+                                                                    data-csrf="{{ csrf_token() }}"
+                                                                    data-id="1"
+                                                                    data-name="package-wrapper-"
+                                                                    class="button-error color-error focus:outline-none delete-product-package-btn">
+                                                                {{ __("Delete Image") }}
+                                                            </button>
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="w-1/6"></div>

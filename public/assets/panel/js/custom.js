@@ -6,7 +6,7 @@ window.addEventListener('load', (event) => {
     $('.delete-product-image-btn').on('click', deleteProductDetailEvent);
     $('.delete-product-package-btn').on('click', deleteProductDetailEvent);
     $('.add-new-image-and-thumb').on('click', addImageAndThumbnailElements);
-    $('.add-new-product-feature').on('click', addNewFeature);
+    $('.add-new-product-package').on('click', addNewPackage);
 });
 
 function deleteProductDetailEvent(e) {
@@ -103,36 +103,32 @@ function addImageAndThumbnailElements() {
     )
 }
 
-function objectToOptions()
+function objectToOptions(object)
 {
-
+    return object.map(function(value, index) {
+        return `<option value="${index}">${value}</option>`;
+    }).join('')
 }
 
-function addNewFeature() {
+function addNewPackage() {
     let amountId = makeId(10);
     let previewImageId = makeId(10);
     let imageId = makeId(10);
     let id = makeId(3);
     let selectId = makeId(3);
 
-    $('#feature-wrapper').append(`
-        <div id="feature-wrapper-${id}">
-   <input type="hidden" value="1" name="feature_ids[]">
+    $('#package-wrapper').append(`
+        <div id="package-wrapper-${id}">
+   <input type="hidden" value="1" name="package_id[]">
    <div class="form-element w-full">
-      <label class="block" for="IovMh55MaKt3bBBO">Feature  <span class="text-danger">*</span> </label>
+      <label class="block" for="IovMh55MaKt3bBBO">Package  <span class="text-danger">*</span> </label>
 
 
-      <select id="${selectId}" class="select2-area select2-hidden-accessible" name="features[]" required>
-         ${objectToOptions()}
-         <option value="0">No</option>
-        <option value="1">Yes</option>
+      <select id="${selectId}" class="select2-area select2-hidden-accessible" name="packages[]" required>
+         ${objectToOptions(packageTypeOptions)}
       </select>
    </div>
    <div class="flex flex-row">
-      <div class="form-element w-full w-1/2">
-         <label class="block" for="${amountId}">Amount </label>
-         <input type="number" name="amounts[]" value="" class="form-control " id="${amountId}" placeholder="Please Enter Package Amount">
-      </div>
       <div class="form-element w-full w-1/2">
          <div class="w-100">
             <img id="${previewImageId}" src="" alt="" class="img-responsive" style="max-height: 100px;">
@@ -140,9 +136,13 @@ function addNewFeature() {
          <label for="${imageId}">Image  <span class="text-danger">*</span> </label>
          <input type="file" multiple="" name="package_images[]" value="" required="" class="form-control " id="${imageId}" placeholder="Please Fill The Form">
       </div>
+      <div class="form-element w-full w-1/2">
+         <label class="block" for="${amountId}">Amount </label>
+         <input type="number" name="amounts[]" value="" class="form-control " id="${amountId}" placeholder="Please Enter Package Amount">
+      </div>
    </div>
    <div class="form-element">
-      <button type="button" data-id="${id}" data-name="feature-wrapper-" data-name="feature-wrapper-" class="button-error focus:outline-none delete-product-package-btn">
+      <button type="button" data-id="${id}" data-name="package-wrapper-" class="button-error color-error focus:outline-none delete-product-package-btn">
       Delete Image
       </button>
    </div>
@@ -184,8 +184,10 @@ function deleteProductImageAndRemoveElement(link, csrf, id, name, messages) {
                         _token: csrf,
                     },
                     success: function (result) {
-                        if (result.result) {
+                        if (+result.status === 200) {
                             $(`#${name + id}`).remove();
+                        } else {
+                            Swal.fire('Error', result.message, 'error')
                         }
                     }
                 });

@@ -57,4 +57,18 @@ class Feature extends Model
     {
         return $this->hasMany(FeatureTranslation::class, 'feature_id', 'id');
     }
+
+    /**
+     * @return array
+     */
+    public static function feature_options(): array
+    {
+        $result = ['0' => __("All Options")];
+        return array_merge($result , Feature::select(['id', 'deleted_at'])->with(['translations' => function($query) {
+            get_current_translation($query);
+            $query->select(['id', 'language_id', 'feature_id', 'name']);
+        }])->withTrashed()->get()->mapWithKeys(function($package) {
+            return [$package->id => $package->translations[0]->name];
+        })->toArray());
+    }
 }

@@ -1183,7 +1183,7 @@ img {
 .form-element textarea {
   padding: 15px 20px;
   width: 100%;
-  height: 70px;
+  /*height: 70px;*/
   outline: none;
   resize: none;
   color: #121925;
@@ -1230,6 +1230,12 @@ img {
   color: #fff;
   background: #0F5EF7;
   border-color: transparent;
+}
+
+.form-element button.button-error {
+    color: #fff;
+    background: #F54A39;
+    border-color: transparent;
 }
 
 .form-element button:nth-child(n+2) {
