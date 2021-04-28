@@ -73,14 +73,14 @@ function addImageAndThumbnailElements() {
          <img id="${imgId1}" src="" alt="" class="img-responsive" style="max-height: 100px;">
       </div>
       <label for="${thumbnailId}">Thumbnail  <span class="text-danger">*</span> </label>
-      <input type="file" multiple="" name="thumbnails[]" value="" required class="form-control " id="${thumbnailId}">
+      <input type="file" multiple="" name="thumbnails[${id}]" value="" required class="form-control " id="${thumbnailId}">
    </div>
    <div class="form-element w-1/2">
       <div class="w-100 py-2">
          <img id="${imgId2}" src="" alt="" class="img-responsive" style="max-height: 100px;">
       </div>
       <label for="${imageId}">Image  <span class="text-danger">*</span> </label>
-      <input type="file" multiple="" name="images[]" value="" required class="form-control " id="${imageId}" placeholder="Please Fill The Form">
+      <input type="file" multiple="" name="images[${id}]" value="" required class="form-control " id="${imageId}" placeholder="Please Fill The Form">
    </div>
 </div>
 <div class="form-element">
@@ -105,9 +105,12 @@ function addImageAndThumbnailElements() {
 
 function objectToOptions(object)
 {
-    return object.map(function(value, index) {
-        return `<option value="${index}">${value}</option>`;
-    }).join('')
+    let result = '';
+    for (const [key, value] of Object.entries(object)) {
+        result += `<option value="${key}">${value}</option>`;
+    }
+
+    return result;
 }
 
 function addNewPackage() {
@@ -124,7 +127,7 @@ function addNewPackage() {
       <label class="block" for="IovMh55MaKt3bBBO">Package  <span class="text-danger">*</span> </label>
 
 
-      <select id="${selectId}" class="select2-area select2-hidden-accessible" name="packages[]" required>
+      <select id="${selectId}" class="select2-area select2-hidden-accessible" name="packages[${id}]" required>
          ${objectToOptions(packageTypeOptions)}
       </select>
    </div>
@@ -134,11 +137,11 @@ function addNewPackage() {
             <img id="${previewImageId}" src="" alt="" class="img-responsive" style="max-height: 100px;">
          </div>
          <label for="${imageId}">Image  <span class="text-danger">*</span> </label>
-         <input type="file" multiple="" name="package_images[]" value="" required="" class="form-control " id="${imageId}" placeholder="Please Fill The Form">
+         <input type="file" multiple="" name="package_images[${id}]" value="" required="" class="form-control " id="${imageId}" placeholder="Please Fill The Form">
       </div>
       <div class="form-element w-full w-1/2">
          <label class="block" for="${amountId}">Amount </label>
-         <input type="number" name="amounts[]" value="" class="form-control " id="${amountId}" placeholder="Please Enter Package Amount">
+         <input type="number" name="amounts[${id}]" value="" class="form-control " id="${amountId}" placeholder="Please Enter Package Amount">
       </div>
    </div>
    <div class="form-element">

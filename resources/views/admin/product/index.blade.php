@@ -27,7 +27,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr class="filters">
                 <form action="">
                 <td class="filter"></td>
                 <td class="filter p-0">
@@ -73,7 +73,7 @@
                         :required="false"
                     ></x-admin::select-input>
                 </td>
-                <td>
+                <td class="filter p-0">
                     <div class="form-element flex w-full">
                         <button type="reset" class="button-second focus:outline-none">{{ __("Reset") }}</button>
                         <button type="submit" class="button-first focus:outline-none">{{ __("Filter") }}</button>

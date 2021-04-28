@@ -14,5 +14,6 @@ Route::prefix('admin/')->name('admin.')->group(function() {
     Route::delete('product-image/{id}', [ProductImageController::class, 'destroy'])->name('product_image.destroy');
     Route::delete('product-package-type/{id}', [ProductPackageTypeController::class, 'destroy'])->name('product-package-type.destroy');
 
-    Route::resource('product', ProductController::class);
+    Route::resource('product', ProductController::class)->except(['update', 'show']);
+    Route::post('product/{product}', [ProductController::class, 'update'])->name('product.update');
 });

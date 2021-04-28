@@ -41,7 +41,7 @@
                                     {{ __("Packages") }}</a></li>
                         </ul>
                     </div>
-                    <form action="{{ route('admin.product.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ isset($product) ? route('admin.product.update', ['product' => $product->id]) : route('admin.product.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="tabs-content">
                             <div id="tabs-1" aria-labelledby="ui-id-1" role="tabpanel"
@@ -53,6 +53,7 @@
                                             :label="__('Image')"
                                             name="image"
                                             :old="isset($product) ? $product->imageUrl : null"
+                                            :required="isset($product) ? false : true"
                                         ></x-admin::file-input>
 
                                         <x-admin::text-input
@@ -99,10 +100,10 @@
 
                                         <x-admin::text-input
                                             :label="__('Description') . ' (' . __('English') . ')'"
-                                            name="tr_description"
+                                            name="en_description"
                                             :value="old('en_description') ?? isset($product) ? $product->translations->where('language_id', 2)->first()->description : null"
                                             :placeholder="__('Please Enter Product Description')"
-                                            :error="$errors->first('tr_description') ?? null"
+                                            :error="$errors->first('en_description') ?? null"
                                             :textarea="true"
                                             :rows="7"
                                         ></x-admin::text-input>
@@ -164,6 +165,16 @@
                                         ></x-admin::select-input>
 
                                         <x-admin::select-input
+                                            :label="__('Blade')"
+                                            name="product_compatibles[]"
+                                            :options="$product_options"
+                                            :value="old('product_compatibles') ?? (isset($product) ? $product->product_compatibles->pluck('blade_id')->toArray() : [])"
+                                            id="feature_ids"
+                                            :required="false"
+                                            :multiple="true"
+                                        ></x-admin::select-input>
+
+                                        <x-admin::select-input
                                             :label="__('Active?')"
                                             name="visible"
                                             :options="[__('No'), __('Yes')]"
@@ -202,7 +213,7 @@
                                                         <div class="flex flex-row">
                                                             <x-admin::file-input
                                                                 :label="__('Thumbnail')"
-                                                                name="thumbnails[]"
+                                                                :name="'thumbnails[' . $product_image->id . ']'"
                                                                 class="w-1/2"
                                                                 :old="$product_image->thumbnailUrl"
                                                                 :required="false"
@@ -210,7 +221,7 @@
                                                             <x-admin::file-input
                                                                 :label="__('Image')"
                                                                 class="w-1/2"
-                                                                name="images[]"
+                                                                :name="'images[' . $product_image->id . ']'"
                                                                 :old="$product_image->imageUrl"
                                                                 :required="false"
                                                             ></x-admin::file-input>
@@ -258,7 +269,7 @@
                                                         <input type="hidden" value="{{ $package->id }}" name="package_ids[]">
                                                         <x-admin::select-input
                                                             :label="__('Package')"
-                                                            name="packages[]"
+                                                            :name="'packages[' . $package->id . ']'"
                                                             :options="$package_type_options"
                                                             :value="old('packages')[$loop->index] ?? $package->package_type_id"
                                                             :required="true"
@@ -267,15 +278,15 @@
                                                         <div class="flex flex-row">
                                                             <x-admin::file-input
                                                                 :label="__('Image')"
-                                                                name="package_images[]"
+                                                                :name="'package_images[' . $package->id. ']'"
                                                                 class="w-1/2"
                                                                 :old="$package->imageUrl"
-                                                                :required="true"
+                                                                :required="false"
                                                             ></x-admin::file-input>
 
                                                             <x-admin::text-input
                                                                 :label="__('Amount')"
-                                                                name="amounts[]"
+                                                                :name="'amounts[' . $package->id . ']'"
                                                                 class="w-1/2"
                                                                 :value="old('amount')[$loop->index] ?? $package->amount"
                                                                 :placeholder="__('Please Enter Pacakge Amount')"

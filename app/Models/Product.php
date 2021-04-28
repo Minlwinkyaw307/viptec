@@ -184,7 +184,6 @@ class Product extends Model
             '0' => __('All Options'),
             '1' => __('Hidden'),
             '2' => __("Active"),
-            '3' => __("Deleted")
         ];
     }
 
@@ -201,12 +200,40 @@ class Product extends Model
         if($filter == 1)
         {
             return $query->where('visible', false);
-        }else if($filter == 2)
+        }else
         {
             return $query->where('visible', true);
-        } else {
-            return $query->where('deleted_at', '!=', null);
         }
+    }
+
+    public function deleteOldImage()
+    {
+        if(Storage::exists($this->image)) {
+            Storage::delete($this->image);
+        }
+    }
+
+    public static function product_options($isFilter=false, $category_ids=[]): array
+    {
+        $result = [];
+        if($isFilter) {
+            $result = ['0' => __("All Options")];
+        }
+        $products = Product::query()
+            ->select(['id', 'deleted_at'])->with(['translations' => function($query) {
+            get_current_translation($query);
+            $query->select(['id', 'language_id', 'product_id', 'title']);
+        }]);
+        if($category_ids) {
+            $products->whereIn('category_id', $category_ids);
+        }
+
+        $products = $products->withTrashed()->get()->mapWithKeys(function($package) {
+            return [$package->id => $package->translations[0]->title];
+        });
+
+
+        return collect($result)->union($products)->toArray();
     }
 
 }
