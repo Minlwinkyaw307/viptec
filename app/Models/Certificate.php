@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Certificate onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|Certificate withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Certificate withoutTrashed()
+ * @property-read array $status
+ * @method static \Illuminate\Database\Eloquent\Builder|Certificate statusFilter($filter)
  */
 class Certificate extends Model
 {

@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\LanguageMiddlerware;
 use App\Http\Middleware\SessionLanguageMiddlerware;
+use App\Http\Middleware\VisitorMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'language' => LanguageMiddlerware::class,
         'sessionLanguage' => SessionLanguageMiddlerware::class,
+        'visitor' => VisitorMiddleware::class,
     ];
 }

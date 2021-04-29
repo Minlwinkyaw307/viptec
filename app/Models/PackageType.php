@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $product_package_types_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PackageTypeTranslation[] $translations
  * @property-read int|null $translations_count
+ * @property-read array $status
+ * @method static \Illuminate\Database\Eloquent\Builder|PackageType statusFilter($filter)
  */
 class PackageType extends Model
 {

@@ -58,6 +58,9 @@ use Illuminate\Support\Facades\Storage;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductImage[] $product_images
  * @property-read int|null $product_images_count
  * @property-read mixed $some_date
+ * @property-read array $status
+ * @method static \Illuminate\Database\Eloquent\Builder|Product productFilter($filter)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product statusFilter($filter)
  */
 class Product extends Model
 {

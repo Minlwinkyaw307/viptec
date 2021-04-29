@@ -35,6 +35,8 @@ use Illuminate\Support\Facades\Storage;
  * @property int $visible
  * @method static \Illuminate\Database\Eloquent\Builder|Slider whereOrderNo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Slider whereVisible($value)
+ * @property-read array $status
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider statusFilter($filter)
  */
 class Slider extends Model
 {

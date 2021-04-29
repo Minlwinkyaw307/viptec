@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @property string $slug
  * @method static \Illuminate\Database\Eloquent\Builder|ProductTranslation whereSlug($value)
+ * @property-read \App\Models\Product $product
  */
 class ProductTranslation extends Model
 {

@@ -39,6 +39,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $quota_description
  * @method static \Illuminate\Database\Eloquent\Builder|SiteConfigTranslations whereQuotaDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SiteConfigTranslations whereQuotaTitle($value)
+ * @property string $subscribe_title
+ * @property string $subscribe_description
+ * @property-read \App\Models\SiteConfig $site_config
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteConfigTranslations whereSubscribeDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SiteConfigTranslations whereSubscribeTitle($value)
  */
 class SiteConfigTranslations extends Model
 {

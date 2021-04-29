@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Gallery whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Gallery withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Gallery withoutTrashed()
+ * @property-read array $status
+ * @method static \Illuminate\Database\Eloquent\Builder|Gallery statusFilter($filter)
  */
 class Gallery extends Model
 {

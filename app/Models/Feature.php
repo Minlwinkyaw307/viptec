@@ -32,6 +32,8 @@ use Illuminate\Support\Collection;
  * @property-read int|null $product_features_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FeatureTranslation[] $translations
  * @property-read int|null $translations_count
+ * @property-read array $status
+ * @method static \Illuminate\Database\Eloquent\Builder|Feature statusFilter($filter)
  */
 class Feature extends Model
 {

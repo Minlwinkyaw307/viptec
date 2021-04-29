@@ -32,6 +32,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FAQTranslation[] $translations
  * @property-read int|null $translations_count
+ * @property-read array $status
+ * @method static \Illuminate\Database\Eloquent\Builder|FAQ searchFilter($filter)
+ * @method static \Illuminate\Database\Eloquent\Builder|FAQ statusFilter($filter)
  */
 class FAQ extends Model
 {

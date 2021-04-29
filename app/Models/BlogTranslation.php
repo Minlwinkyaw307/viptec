@@ -31,6 +31,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @property string $slug
  * @method static \Illuminate\Database\Eloquent\Builder|BlogTranslation whereSlug($value)
+ * @method static \Illuminate\Database\Query\Builder|BlogTranslation onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|BlogTranslation withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|BlogTranslation withoutTrashed()
  */
 class BlogTranslation extends Model
 {

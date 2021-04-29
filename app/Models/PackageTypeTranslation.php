@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|PackageTypeTranslation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|PackageTypeTranslation withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \App\Models\PackageType $package_type
  */
 class PackageTypeTranslation extends Model
 {

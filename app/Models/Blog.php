@@ -35,6 +35,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Blog withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Blog withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlogView[] $blog_views
+ * @property-read int|null $blog_views_count
+ * @property-read array $status
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog statusFilter($filter)
  */
 class Blog extends Model
 {

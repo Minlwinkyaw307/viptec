@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
+ * @property-read array $status
+ * @method static \Illuminate\Database\Eloquent\Builder|Category statusFilter($filter)
  */
 class Category extends Model
 {

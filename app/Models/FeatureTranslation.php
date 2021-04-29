@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|FeatureTranslation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|FeatureTranslation withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \App\Models\Feature $feature
  */
 class FeatureTranslation extends Model
 {

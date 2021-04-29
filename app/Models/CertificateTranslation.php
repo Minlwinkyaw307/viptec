@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|CertificateTranslation whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CertificateTranslation whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Certificate $certificate
  */
 class CertificateTranslation extends Model
 {

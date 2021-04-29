@@ -9,6 +9,7 @@ use App\Models\FAQTranslation;
 use App\Models\SiteConfigTranslations;
 use App\Models\SliderTranslation;
 use App\Models\User;
+use App\Models\Visitor;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -49,5 +50,6 @@ class DatabaseSeeder extends Seeder
          BlogView::factory(50)->create();
          ContactMessage::factory(50)->create();
          User::factory(1)->create();
+         Visitor::factory(250)->create();
     }
 }
