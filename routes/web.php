@@ -35,6 +35,8 @@ Route::name('front.')->group(function() {
     });
 
     Route::multilingual('login', [AuthController::class, 'login'])->name('login');
+    Route::multilingual('login', [AuthController::class, 'post_login'])->method('post')->name('post_login');
+    Route::multilingual('logout', [AuthController::class, 'logout'])->method('post')->name('logout');
 
     Route::get('/auth/redirect', [AuthController::class, 'redirectToProvider'])->name('auth.redirect');
     Route::get('/auth/callback', [AuthController::class, 'handleProviderCallback'])->name('auth.callback');

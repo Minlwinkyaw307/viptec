@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
@@ -41,7 +40,7 @@
             }
         }
 
-        @keyframes  sk-scaleout {
+        @keyframes sk-scaleout {
             0% {
                 -webkit-transform: scale(0);
                 transform: scale(0)
@@ -76,8 +75,9 @@
     </div>
     <div class="col-12 col-md-4 peer pX-40 pY-80 h-100 bgc-white scrollable pos-r" style="min-width:320px"><h4
             class="fw-300 c-grey-900 mB-40">Login</h4>
-        <form method="post">
-            <input type="hidden" name="_token" value="6ILba51I6h2GFJiX9qT5R15E48DnPp6yXiFL7sPK">            <div class="form-group"><label class="text-normal text-dark">Username</label>
+        <form method="post" action="{{ localized_route('front.post_login') }}">
+            @csrf
+            <div class="form-group"><label class="text-normal text-dark">Username</label>
                 <input type="email"
                        name="email"
                        required

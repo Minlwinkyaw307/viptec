@@ -133,6 +133,7 @@
       <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
       <path value="$PROJECT_DIR$/vendor/chinleung/laravel-multilingual-routes" />
       <path value="$PROJECT_DIR$/vendor/chinleung/laravel-locales" />
+      <path value="$PROJECT_DIR$/vendor/laravel/breeze" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
