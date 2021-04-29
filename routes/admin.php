@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\FAQController;
+use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\PackageTypeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductPackageTypeController;
@@ -16,4 +20,9 @@ Route::prefix('admin/')->name('admin.')->group(function() {
 
     Route::resource('product', ProductController::class)->except(['update', 'show']);
     Route::post('product/{product}', [ProductController::class, 'update'])->name('product.update');
+
+    Route::resource('category', CategoryController::class)->except(['show']);
+    Route::resource('feature', FeatureController::class)->except(['show']);
+    Route::resource('package-type', PackageTypeController::class)->except(['show']);
+    Route::resource('faq', FAQController::class)->except(['show']);
 });

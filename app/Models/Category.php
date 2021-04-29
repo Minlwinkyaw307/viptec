@@ -38,6 +38,24 @@ class Category extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['status'];
+
+    public function scopeSearchFilter($query, $filter) {
+        return $query->whereHas('translations', function($query) use ($filter) {
+            $query->where('name', 'like', "%$filter%");
+        });
+    }
+
+    public function scopeStatusFilter($query, $filter) {
+        if($filter == 1)
+        {
+            return $query->where('visible', false);
+        }else
+        {
+            return $query->where('visible', true);
+        }
+    }
+
     /**
      * Translations of current category
      *
@@ -77,5 +95,44 @@ class Category extends Model
         });
 
         return collect($result)->union(collect($categories))->toArray();
+    }
+
+    /**
+     * Return all the statuses of category
+     *
+     * @return array
+     */
+    public static function category_statues(): array
+    {
+        return [
+            '0' => __('All Options'),
+            '1' => __('Hidden'),
+            '2' => __("Active"),
+        ];
+    }
+
+    /**
+     * Return the status of the product with class and name
+     *
+     * @return array
+     */
+    public function getStatusAttribute(): array
+    {
+        if($this->deleted_at)
+        {
+            return [
+                'class' => 'error',
+                'name' => __("Deleted")
+            ];
+        } else if ($this->attributes['visible']) {
+            return [
+                'class' => 'success',
+                'name' => __("Active")
+            ];
+        }
+        return [
+            'class' => 'waiting',
+            'name' => __('Hidden')
+        ];
     }
 }

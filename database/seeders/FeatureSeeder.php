@@ -17,12 +17,18 @@ class FeatureSeeder extends Seeder
         $rows = [
             [
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
 

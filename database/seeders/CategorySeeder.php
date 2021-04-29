@@ -18,26 +18,38 @@ class CategorySeeder extends Seeder
             [
                 'id' => 1,
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 2,
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 3,
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 4,
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 5,
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 6,
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
 

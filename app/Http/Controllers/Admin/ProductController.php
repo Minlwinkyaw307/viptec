@@ -211,7 +211,12 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function update(Request $request, $id): RedirectResponse
     {
 //        dd(request()->all());
         try {
