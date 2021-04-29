@@ -109,13 +109,12 @@ class TranslationModelController extends Controller
         }
 
         if ($filter_created_at) {
-            $data = $data->where('created_at', Carbon::parse($filter_created_at));
+            $data = $data->whereDate('created_at', $filter_created_at);
         }
 
         if ($filter_status_id) {
             $data = $data->statusFilter($filter_status_id);
         }
-
         $data = $data->paginate($request->get('per_page') ?? 10);
 
         return view("admin.$this->route.index", [
@@ -198,8 +197,21 @@ class TranslationModelController extends Controller
         if($this->isVisibleIncluded)
         {
             $data->visible = $request->get('visible');
-            $data->saveOrFail();
         }
+
+        foreach ($this->extraModelFields as $key=>$detail)
+        {
+            if($detail['type'] == 'image')
+            {
+                if($request->hasFile($key))
+                {
+                    $data->$key = \Storage::putFile($this->model::BASE_LOCATION, $request->file($key));
+                }
+            }else {
+                $value[$key] = $request->get($key);
+            }
+        }
+        $data->saveOrFail();
 
         $translations = language_data_collector(collect($this->extraTranslationFields)->keys()->toArray(), [$this->key => $data->id]);
         $translations->each(function ($translation) use ($data) {
