@@ -32,10 +32,10 @@
                     <td class="filter"></td>
                     <td class="filter">
                         <x-admin::text-input
-                            name="filter_category_name"
+                            name="filter_name"
                             :label="null"
-                            :value="request()->query('filter_search')"
-                            id="filter_category_name"
+                            :value="request()->query('filter_name')"
+                            id="filter_name"
                             :placeholder="__('Please Enter Category Name')"
                             :required="false"
                         ></x-admin::text-input>

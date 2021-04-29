@@ -40,12 +40,6 @@ class Category extends Model
 
     protected $appends = ['status'];
 
-    public function scopeSearchFilter($query, $filter) {
-        return $query->whereHas('translations', function($query) use ($filter) {
-            $query->where('name', 'like', "%$filter%");
-        });
-    }
-
     public function scopeStatusFilter($query, $filter) {
         if($filter == 1)
         {

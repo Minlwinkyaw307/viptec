@@ -31,10 +31,10 @@
                     <td class="filter"></td>
                     <td class="filter">
                         <x-admin::text-input
-                            name="filter_search"
+                            name="filter_name"
                             :label="null"
-                            :value="request()->query('filter_search')"
-                            id="filter_search"
+                            :value="request()->query('filter_name')"
+                            id="filter_name"
                             :placeholder="__('Please Enter Feature Name')"
                             :required="false"
                         ></x-admin::text-input>

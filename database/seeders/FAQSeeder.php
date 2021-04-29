@@ -18,10 +18,14 @@ class FAQSeeder extends Seeder
             [
                 'order_no' => 1,
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'order_no' => 2,
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ]
         ];
 

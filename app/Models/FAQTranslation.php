@@ -43,7 +43,7 @@ class FAQTranslation extends Model
 
     protected $fillable = ['question', 'answer', 'language_id'];
 
-    protected $guarded = [];
+    protected $guarded = ['name'];
 
     /**
      * Belonged FAQ Model

@@ -45,7 +45,12 @@ class TranslationModelController extends Controller
     /**
      * @var array
      */
-    protected $extraFields = [];
+    protected $extraTranslationFields = ['name' => 'text'];
+
+    /**
+     * @var array
+     */
+    protected $extraModelFields = [];
 
     /**
      * @var boolean
@@ -56,6 +61,11 @@ class TranslationModelController extends Controller
      * @var boolean
      */
     protected $isSlugIncluded;
+
+    /**
+     * @var bool
+     */
+    protected $hasOrder = false;
 
     /**
      * @var array
@@ -84,7 +94,7 @@ class TranslationModelController extends Controller
             }]);
         $data->withCount($this->counts);
 
-        foreach($this->extraFields as $key=>$extraField)
+        foreach($this->extraTranslationFields as $key=> $extraField)
         {
             $data->whereHas('translations', function($query) use ($key, $extraField, $request) {
                 $value = $request->get("filter_" . $key);
@@ -96,10 +106,6 @@ class TranslationModelController extends Controller
                     $query->where($key, 'like', "%" . $value . '%');
                 }
             });
-        }
-
-        if ($filter_search) {
-            $data = $data->searchFilter($filter_search);
         }
 
         if ($filter_created_at) {
@@ -135,9 +141,13 @@ class TranslationModelController extends Controller
                 {
                     $value['visible'] = $request->get('visible');
                 }
+                if($this->hasOrder)
+                {
+                    $value['order_no'] = $this->model::max('order_no') + 1;
+                }
                 $data = $this->model::create($value);
 
-                $translations = language_data_collector(array_merge(['name'], collect($this->extraFields)->keys()->toArray()), [$this->key => $data->id]);
+                $translations = language_data_collector(collect($this->extraTranslationFields)->keys()->toArray(), [$this->key => $data->id]);
                 $translations = $translations->map(function ($translation) {
                     if($this->isSlugIncluded)
                     {
@@ -179,7 +189,7 @@ class TranslationModelController extends Controller
             $data->saveOrFail();
         }
 
-        $translations = language_data_collector(array_merge(['name'], collect($this->extraFields)->keys()->toArray()), [$this->key => $data->id]);
+        $translations = language_data_collector(collect($this->extraTranslationFields)->keys()->toArray(), [$this->key => $data->id]);
         $translations->each(function ($translation) use ($data) {
             $old_translations = $data->translations->where('language_id', $translation['language_id'])->first();
             if($this->isSlugIncluded)
