@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\BlogView;
 use App\Models\CategoryTranslation;
+use App\Models\ContactMessage;
 use App\Models\FAQTranslation;
 use App\Models\SiteConfigTranslations;
 use App\Models\SliderTranslation;
@@ -45,5 +46,6 @@ class DatabaseSeeder extends Seeder
             CertificateTranslationSeeder::class,
         ]);
          BlogView::factory(50)->create();
+         ContactMessage::factory(50)->create();
     }
 }
