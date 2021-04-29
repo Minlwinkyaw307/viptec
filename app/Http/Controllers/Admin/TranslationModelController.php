@@ -86,23 +86,24 @@ class TranslationModelController extends Controller
         $filter_created_at = $request->get('filter_created_at') ?? null;
         $filter_status_id = $request->get('filter_status_id') ?? null;
 
-        $data = $this->model::query()
-            ->with(['translations' => function ($query) {
+        $data = $this->model::query();
+
+        if ($this->extraTranslationFields) {
+            $data = $data->with(['translations' => function ($query) {
                 get_current_translation($query);
             }]);
+        }
+
         $data->withCount($this->counts);
 
-        foreach($this->extraTranslationFields as $key=>$extraField)
-        {
-            if(!($request->get("filter_" . $key) ?? null)) continue;
+        foreach ($this->extraTranslationFields as $key => $extraField) {
+            if (!($request->get("filter_" . $key) ?? null)) continue;
 
-            $data->whereHas('translations', function($query) use ($key, $extraField, $request) {
+            $data->whereHas('translations', function ($query) use ($key, $extraField, $request) {
                 $value = $request->get("filter_" . $key);
-                if($extraField == 'date')
-                {
+                if ($extraField == 'date') {
                     $query->where($key, Carbon::parse($value));
-                }
-                else {
+                } else {
                     $query->where($key, 'like', "%" . $value . '%');
                 }
             });
@@ -136,37 +137,35 @@ class TranslationModelController extends Controller
         try {
             \DB::transaction(function () use ($request) {
                 $value = [];
-                if($this->isVisibleIncluded)
+                if ($this->isVisibleIncluded)
                     $value['visible'] = $request->get('visible');
 
-                if($this->hasOrder)
+                if ($this->hasOrder)
                     $value['order_no'] = $this->model::max('order_no') + 1;
 
-                foreach ($this->extraModelFields as $key=>$detail)
-                {
-                    if($detail['type'] == 'image')
-                    {
-                        if($detail['required'])
-                        {
+                foreach ($this->extraModelFields as $key => $detail) {
+                    if ($detail['type'] == 'image') {
+                        if ($detail['required']) {
                             $value[$key] = \Storage::putFile($this->model::BASE_LOCATION, $request->file($key));
                         }
-                    }else {
+                    } else {
                         $value[$key] = $request->get($key);
                     }
                 }
 
                 $data = $this->model::create($value);
 
-                $translations = language_data_collector(collect($this->extraTranslationFields)->keys()->toArray(), [$this->key => $data->id]);
-                $translations = $translations->map(function ($translation) {
-                    if($this->slug)
-                    {
-                        $translation['slug'] = Str::slug($translation[$this->slug]);
-                    }
-                    return $translation;
-                });
+                if ($this->extraTranslationFields) {
+                    $translations = language_data_collector(collect($this->extraTranslationFields)->keys()->toArray(), [$this->key => $data->id]);
+                    $translations = $translations->map(function ($translation) {
+                        if ($this->slug) {
+                            $translation['slug'] = Str::slug($translation[$this->slug]);
+                        }
+                        return $translation;
+                    });
 
-                $this->translationModel::insert($translations->toArray());
+                    $this->translationModel::insert($translations->toArray());
+                }
             });
         } catch (\Throwable $e) {
             dd($e);
@@ -178,7 +177,12 @@ class TranslationModelController extends Controller
 
     protected function _edit(Request $request, $id)
     {
-        $data = $this->model::whereId($id)->with(['translations'])->firstOrFail();
+        $data = $this->model::whereId($id);
+        if($this->extraTranslationFields)
+        {
+            $data = $data->with(['translations']);
+        }
+        $data = $data->firstOrFail();
 
         return view("admin.$this->route.create-edit", [
             'data' => $data
@@ -193,47 +197,50 @@ class TranslationModelController extends Controller
      */
     protected function _update(Request $request, $id): RedirectResponse
     {
-        $data = $this->model::whereId($id)->with(['translations'])->firstOrFail();
-        if($this->isVisibleIncluded)
+        $data = $this->model::whereId($id);
+        if($this->extraTranslationFields)
         {
+            $data = $data->with(['translations']);
+        }
+        $data = $data->firstOrFail();
+
+        if ($this->isVisibleIncluded) {
             $data->visible = $request->get('visible');
         }
 
-        foreach ($this->extraModelFields as $key=>$detail)
-        {
-            if($detail['type'] == 'image')
-            {
-                if($request->hasFile($key))
-                {
+        foreach ($this->extraModelFields as $key => $detail) {
+            if ($detail['type'] == 'image') {
+                if ($request->hasFile($key)) {
                     $data->$key = \Storage::putFile($this->model::BASE_LOCATION, $request->file($key));
                 }
-            }else {
+            } else {
                 $value[$key] = $request->get($key);
             }
         }
         $data->saveOrFail();
 
-        $translations = language_data_collector(collect($this->extraTranslationFields)->keys()->toArray(), [$this->key => $data->id]);
-        $translations->each(function ($translation) use ($data) {
-            $old_translations = $data->translations->where('language_id', $translation['language_id'])->first();
-            if($this->slug)
-            {
-                $slug = $this->slug;
-                if (optional($old_translations)->$slug != $translation[$this->slug]) {
-                    $translation['slug'] = Str::slug($translation[$this->slug]);
-                } else {
-                    $translation['slug'] = optional($old_translations)->slug;
+        if ($this->extraTranslationFields) {
+            $translations = language_data_collector(collect($this->extraTranslationFields)->keys()->toArray(), [$this->key => $data->id]);
+            $translations->each(function ($translation) use ($data) {
+                $old_translations = $data->translations->where('language_id', $translation['language_id'])->first();
+                if ($this->slug) {
+                    $slug = $this->slug;
+                    if (optional($old_translations)->$slug != $translation[$this->slug]) {
+                        $translation['slug'] = Str::slug($translation[$this->slug]);
+                    } else {
+                        $translation['slug'] = optional($old_translations)->slug;
+                    }
                 }
-            }
-            $old_translations->fill($translation)->save();
-        });
+                $old_translations->fill($translation)->save();
+            });
+        }
 
         return redirect()->route("admin.$this->route.index")->with('success', __("Successfully Updated"));
     }
 
     protected function _destroy(Request $request, $id)
     {
-        $data = $this->model::whereId($id)->with(['translations'])->firstOrFail();
+        $data = $this->model::whereId($id)->firstOrFail();
 
         $data->delete();
 

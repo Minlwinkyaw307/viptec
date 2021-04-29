@@ -38,6 +38,59 @@ class Gallery extends Model
 
     protected $guarded = [];
 
+    protected $appends = ['status'];
+
+    public CONST BASE_LOCATION = 'galleries';
+
+    public function scopeStatusFilter($query, $filter) {
+        if($filter == 1)
+        {
+            return $query->where('visible', false);
+        }else
+        {
+            return $query->where('visible', true);
+        }
+    }
+
+    /**
+     * Return all the statuses of feature
+     *
+     * @return array
+     */
+    public static function package_statues(): array
+    {
+        return [
+            '0' => __('All Options'),
+            '1' => __('Hidden'),
+            '2' => __("Active"),
+        ];
+    }
+
+    /**
+     * Return the status of the product with class and name
+     *
+     * @return array
+     */
+    public function getStatusAttribute(): array
+    {
+        if($this->deleted_at)
+        {
+            return [
+                'class' => 'error',
+                'name' => __("Deleted")
+            ];
+        } else if ($this->attributes['visible']) {
+            return [
+                'class' => 'success',
+                'name' => __("Active")
+            ];
+        }
+        return [
+            'class' => 'waiting',
+            'name' => __('Hidden')
+        ];
+    }
+
 
     public function getImageUrlAttribute()
     {

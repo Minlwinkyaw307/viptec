@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\Admin\FeatureController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\PackageTypeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
@@ -30,5 +31,6 @@ Route::prefix('admin/')->name('admin.')->group(function() {
     Route::resource('faq', FAQController::class)->except(['show']);
     Route::resource('blog', BlogController::class)->except(['show']);
     Route::resource('certificate', CertificateController::class)->except(['show']);
+    Route::resource('gallery', GalleryController::class)->except(['show']);
     Route::resource('contact-message', ContactMessageController::class)->except(['create', 'store', 'edit', 'update']);
 });
