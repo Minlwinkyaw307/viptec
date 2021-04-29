@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PackageTypeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductPackageTypeController;
+use App\Http\Controllers\Admin\SiteConfigController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\CorporateController;
 use Illuminate\Support\Facades\Route;
@@ -44,5 +45,8 @@ Route::prefix('admin/')->name('admin.')->group(function() {
 
         Route::get('corporate', [CorporateController::class, 'edit'])->name('corporate.edit');
         Route::put('corporate', [CorporateController::class, 'update'])->name('corporate.update');
+
+        Route::get('setting', [SiteConfigController::class, 'edit'])->name('setting.edit');
+        Route::put('setting', [SiteConfigController::class, 'update'])->name('setting.update');
     });
 });

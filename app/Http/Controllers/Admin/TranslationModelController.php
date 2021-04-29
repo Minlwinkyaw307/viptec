@@ -265,9 +265,10 @@ class TranslationModelController extends Controller
                     $data->$key = \Storage::putFile($this->model::BASE_LOCATION, $request->file($key));
                 }
             } else {
-                $value[$key] = $request->get($key);
+                $data->$key = $request->get($key);
             }
         }
+
         $data->saveOrFail();
 
         if ($this->translationFields) {
