@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductPackageTypeController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\CorporateController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -40,5 +41,8 @@ Route::prefix('admin/')->name('admin.')->group(function() {
     Route::prefix('configs/')->name('config.')->group(function () {
         Route::get('home', [HomePageController::class, 'edit'])->name('home.edit');
         Route::put('home', [HomePageController::class, 'update'])->name('home.update');
+
+        Route::get('corporate', [CorporateController::class, 'edit'])->name('corporate.edit');
+        Route::put('corporate', [CorporateController::class, 'update'])->name('corporate.update');
     });
 });

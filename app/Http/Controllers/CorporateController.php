@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\HomePageEditRequest;
-use App\Http\Requests\Admin\HomePageUpdateRequest;
+use App\Http\Controllers\Admin\TranslationModelController;
+use App\Http\Requests\Admin\CorporateEditRequest;
+use App\Http\Requests\Admin\CorporateUpdateRequest;
 use App\Models\SiteConfig;
 use App\Models\SiteConfigTranslations;
 use Illuminate\Contracts\Foundation\Application;
@@ -13,7 +13,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class HomePageController extends TranslationModelController
+class CorporateController extends TranslationModelController
 {
     public function __construct()
     {
@@ -21,13 +21,9 @@ class HomePageController extends TranslationModelController
         $this->translationModel = SiteConfigTranslations::class;
         $this->slug = null;
         $this->isVisibleIncluded = false;
-        $this->successRedirectRouteName = 'admin.config.home.edit';
+        $this->successRedirectRouteName = 'admin.config.corporate.edit';
 
         $this->modelFields = [
-            'about_image' => [
-                'type' => 'image',
-                'required' => true
-            ],
             'quota_background' => [
                 'type' => 'image',
                 'required' => true
@@ -35,34 +31,31 @@ class HomePageController extends TranslationModelController
         ];
 
         $this->translationFields = [
-            'about_title' => 'text',
-            'about_description' => 'text',
-            'quota_title' => 'text',
-            'quota_description' => 'text',
-            'subscribe_title' => 'text',
-            'subscribe_description' => 'text',
+            'vision' => 'text',
         ];
+
+        $this->translationSelect = ['vision'];
         $this->hasOrder = false;
-        $this->route = 'home';
+        $this->route = 'corporate';
         $this->key = 'site_config_id';
     }
 
 
     /**
-     * @param HomePageEditRequest $request
+     * @param CorporateEditRequest $request
      * @return Application|Factory|View
      */
-    public function edit(HomePageEditRequest $request)
+    public function edit(CorporateEditRequest $request)
     {
         return $this->_edit($request, 1);
     }
 
     /**
-     * @param HomePageUpdateRequest $request
+     * @param CorporateUpdateRequest $request
      * @return RedirectResponse
      * @throws \Throwable
      */
-    public function update(HomePageUpdateRequest $request): RedirectResponse
+    public function update(CorporateUpdateRequest $request): RedirectResponse
     {
         return $this->_update($request, 1);
     }

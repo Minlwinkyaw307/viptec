@@ -108,7 +108,7 @@ class TranslationModelController extends Controller
                 get_current_translation($query);
                 if($this->translationSelect)
                 {
-                    $query->select($this->translationSelect);
+                    $query->select($this->translationSelectFields());
                 }
             }]);
         }
@@ -205,12 +205,16 @@ class TranslationModelController extends Controller
         $data = $this->model::whereId($id);
         if($this->translationFields)
         {
-            $data = $data->with(['translations']);
-
-            if($this->translationSelect)
-            {
-                $data = $data->select($this->translationSelect);
-            }
+            $data = $data->with(['translations' => function($query) {
+                if($this->translationSelect)
+                {
+                    $query->select($this->translationSelectFields());
+                }
+            }]);
+        }
+        if($this->modelSelect)
+        {
+            $data = $data->select($this->modelSelect);
         }
         $data = $data->firstOrFail();
 
@@ -219,6 +223,13 @@ class TranslationModelController extends Controller
         ]);
     }
 
+    /**
+     * @return array
+     */
+    private function translationSelectFields(): array
+    {
+        return array_merge(['id', 'language_id', $this->key], $this->translationSelect);
+    }
     /**
      * @param Request $request
      * @param $id
@@ -230,8 +241,18 @@ class TranslationModelController extends Controller
         $data = $this->model::whereId($id);
         if($this->translationFields)
         {
-            $data = $data->with(['translations']);
+            $data = $data->with(['translations' => function($query) {
+                if($this->translationSelect)
+                {
+                    $query->select($this->translationSelectFields());
+                }
+            }]);
         }
+        if($this->modelSelect)
+        {
+            $data = $data->select($this->modelSelect);
+        }
+
         $data = $data->firstOrFail();
 
         if ($this->isVisibleIncluded) {
