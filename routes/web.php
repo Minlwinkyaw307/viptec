@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ProductController;
@@ -32,5 +33,7 @@ Route::name('front.')->group(function() {
         Route::multilingual('/product', [ProductController::class, 'index'])->name('index');
         Route::multilingual('/product/{slug}', [ProductController::class, 'detail'])->name('detail');
     });
+
+    Route::multilingual('login', [AuthController::class, 'login'])->name('login');
 });
 

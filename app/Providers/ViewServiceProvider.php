@@ -32,6 +32,7 @@ class ViewServiceProvider extends ServiceProvider
             'front.contact',
             'front.blog.*',
             'front.product.*',
+            'front.login',
         ], ConfigComposer::class);
     }
 }
