@@ -26,7 +26,7 @@ class FAQController extends TranslationModelController
         $this->translationModel = FAQTranslation::class;
         $this->slug = null;
         $this->isVisibleIncluded = true;
-        $this->extraTranslationFields = [
+        $this->translationFields = [
             'answer' => 'text',
             'question' => 'text',
         ];

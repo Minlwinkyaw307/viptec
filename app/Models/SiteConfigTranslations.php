@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\SiteConfigTranslations
@@ -42,4 +43,14 @@ use Illuminate\Database\Eloquent\Model;
 class SiteConfigTranslations extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    /**
+     * @return BelongsTo
+     */
+    public function site_config(): BelongsTo
+    {
+        return $this->belongsTo(SiteConfig::class);
+    }
 }

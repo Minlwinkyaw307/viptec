@@ -26,7 +26,7 @@ class BlogController extends TranslationModelController
         $this->slug = 'title';
         $this->isVisibleIncluded = true;
 
-        $this->extraModelFields = [
+        $this->modelFields = [
             'image' => [
                 'type' => 'image',
                 'required' => true
@@ -38,7 +38,7 @@ class BlogController extends TranslationModelController
         ];
         $this->counts = ['blog_views'];
 
-        $this->extraTranslationFields = [
+        $this->translationFields = [
             'title' => 'text',
             'content' => 'text',
         ];

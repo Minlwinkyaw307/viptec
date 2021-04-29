@@ -45,12 +45,22 @@ class TranslationModelController extends Controller
     /**
      * @var array
      */
-    protected $extraTranslationFields = ['name' => 'text'];
+    protected $translationFields = ['name' => 'text'];
 
     /**
      * @var array
      */
-    protected $extraModelFields = [];
+    protected $modelFields = [];
+
+    /**
+     * @var null|array
+     */
+    protected $translationSelect = null;
+
+    /**
+     * @var null|array
+     */
+    protected $modelSelect = null;
 
     /**
      * @var boolean
@@ -78,6 +88,11 @@ class TranslationModelController extends Controller
     protected $titles;
 
     /**
+     * @var null|string
+     */
+    protected $successRedirectRouteName = null;
+
+    /**
      * @param Request $request
      * @return Application|Factory|View
      */
@@ -88,15 +103,19 @@ class TranslationModelController extends Controller
 
         $data = $this->model::query();
 
-        if ($this->extraTranslationFields) {
+        if ($this->translationFields) {
             $data = $data->with(['translations' => function ($query) {
                 get_current_translation($query);
+                if($this->translationSelect)
+                {
+                    $query->select($this->translationSelect);
+                }
             }]);
         }
 
         $data->withCount($this->counts);
 
-        foreach ($this->extraTranslationFields as $key => $extraField) {
+        foreach ($this->translationFields as $key => $extraField) {
             if (!($request->get("filter_" . $key) ?? null)) continue;
 
             $data->whereHas('translations', function ($query) use ($key, $extraField, $request) {
@@ -116,6 +135,12 @@ class TranslationModelController extends Controller
         if ($filter_status_id) {
             $data = $data->statusFilter($filter_status_id);
         }
+
+        if($this->modelSelect)
+        {
+            $data = $data->select($this->modelSelect);
+        }
+
         $data = $data->paginate($request->get('per_page') ?? 10);
 
         return view("admin.$this->route.index", [
@@ -143,7 +168,7 @@ class TranslationModelController extends Controller
                 if ($this->hasOrder)
                     $value['order_no'] = $this->model::max('order_no') + 1;
 
-                foreach ($this->extraModelFields as $key => $detail) {
+                foreach ($this->modelFields as $key => $detail) {
                     if ($detail['type'] == 'image') {
                         if ($detail['required']) {
                             $value[$key] = \Storage::putFile($this->model::BASE_LOCATION, $request->file($key));
@@ -155,8 +180,8 @@ class TranslationModelController extends Controller
 
                 $data = $this->model::create($value);
 
-                if ($this->extraTranslationFields) {
-                    $translations = language_data_collector(collect($this->extraTranslationFields)->keys()->toArray(), [$this->key => $data->id]);
+                if ($this->translationFields) {
+                    $translations = language_data_collector(collect($this->translationFields)->keys()->toArray(), [$this->key => $data->id]);
                     $translations = $translations->map(function ($translation) {
                         if ($this->slug) {
                             $translation['slug'] = Str::slug($translation[$this->slug]);
@@ -172,15 +197,20 @@ class TranslationModelController extends Controller
             return redirect()->back()->withErrors(__("Couldn't Save it. Please Try Again!"));
         }
 
-        return redirect()->route("admin.$this->route.index")->with("success", __("Successfully Created"));
+        return redirect()->route($this->successRedirectRouteName ?? "admin.$this->route.index")->with("success", __("Successfully Created"));
     }
 
     protected function _edit(Request $request, $id)
     {
         $data = $this->model::whereId($id);
-        if($this->extraTranslationFields)
+        if($this->translationFields)
         {
             $data = $data->with(['translations']);
+
+            if($this->translationSelect)
+            {
+                $data = $data->select($this->translationSelect);
+            }
         }
         $data = $data->firstOrFail();
 
@@ -198,7 +228,7 @@ class TranslationModelController extends Controller
     protected function _update(Request $request, $id): RedirectResponse
     {
         $data = $this->model::whereId($id);
-        if($this->extraTranslationFields)
+        if($this->translationFields)
         {
             $data = $data->with(['translations']);
         }
@@ -208,7 +238,7 @@ class TranslationModelController extends Controller
             $data->visible = $request->get('visible');
         }
 
-        foreach ($this->extraModelFields as $key => $detail) {
+        foreach ($this->modelFields as $key => $detail) {
             if ($detail['type'] == 'image') {
                 if ($request->hasFile($key)) {
                     $data->$key = \Storage::putFile($this->model::BASE_LOCATION, $request->file($key));
@@ -219,8 +249,8 @@ class TranslationModelController extends Controller
         }
         $data->saveOrFail();
 
-        if ($this->extraTranslationFields) {
-            $translations = language_data_collector(collect($this->extraTranslationFields)->keys()->toArray(), [$this->key => $data->id]);
+        if ($this->translationFields) {
+            $translations = language_data_collector(collect($this->translationFields)->keys()->toArray(), [$this->key => $data->id]);
             $translations->each(function ($translation) use ($data) {
                 $old_translations = $data->translations->where('language_id', $translation['language_id'])->first();
                 if ($this->slug) {
@@ -235,7 +265,7 @@ class TranslationModelController extends Controller
             });
         }
 
-        return redirect()->route("admin.$this->route.index")->with('success', __("Successfully Updated"));
+        return redirect()->route($this->successRedirectRouteName ?? "admin.$this->route.index")->with('success', __("Successfully Updated"));
     }
 
     protected function _destroy(Request $request, $id)
@@ -244,6 +274,6 @@ class TranslationModelController extends Controller
 
         $data->delete();
 
-        return redirect()->route("admin.$this->route.index")->with('success', __("Successfully Deleted"));
+        return redirect()->route($this->successRedirectRouteName ?? "admin.$this->route.index")->with('success', __("Successfully Deleted"));
     }
 }

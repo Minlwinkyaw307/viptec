@@ -29,6 +29,10 @@ class CreateSiteConfigTranslationsTable extends Migration
 
             $table->string('quota_title');
             $table->string('quota_description');
+
+            $table->string('subscribe_title');
+            $table->string('subscribe_description');
+
             $table->timestamps();
         });
     }

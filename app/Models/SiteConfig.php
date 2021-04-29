@@ -66,7 +66,9 @@ class SiteConfig extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['logoUrl', 'faviconUrl', 'aboutImageUrl', 'catalogueFileUrl'];
+    public CONST BASE_LOCATION = 'configs';
+
+    protected $appends = ['logoUrl', 'faviconUrl', 'aboutImageUrl', 'catalogueFileUrl', 'quotaBackgroundUrl'];
 
     /**
      * Return Url of Site Logo

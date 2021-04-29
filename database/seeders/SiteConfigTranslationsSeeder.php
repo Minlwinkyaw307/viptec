@@ -17,9 +17,9 @@ class SiteConfigTranslationsSeeder extends Seeder
     {
         $rows = [
             [
-                'language_id'   => 1,
-                'site_config_id'    => 1,
-                'title'     => 'VIP-TEC - Profesyonel Maket Bıçakları',
+                'language_id' => 1,
+                'site_config_id' => 1,
+                'title' => 'VIP-TEC - Profesyonel Maket Bıçakları',
                 'site_name' => 'VIP-TEC',
                 'description' => 'Metal gövde maket bıçağı, plastik gövde maket bıçağı, güvenlikli maket bıçağı, klipsli maket bıçağı, halıcı tip maket bıçağı, maket bıçağı yedeği',
                 'about_title' => 'VIP-TEC Hakkında',
@@ -27,11 +27,13 @@ class SiteConfigTranslationsSeeder extends Seeder
                 "vision" => view('seeder.tr_vision'),
                 "quota_title" => 'Size Özel Çözümlerimiz İçin Hemen Teklif Alın.',
                 "quota_description" => 'İstenilen ürünlerin özelliklerine göre fiyatlarımız değişmektedir. Size özel fiyat teklifimizi almak için aşağıdaki tuşa basın sizinle iletişime geçelim.',
+                "subscribe_title" => "Size Özel Çözümlerimiz İçin Hemen Teklif Alın.",
+                "subscribe_description" => "İstenilen ürünlerin özelliklerine göre fiyatlarımız değişmektedir. Size özel fiyat teklifimizi almak için aşağıdaki tuşa basın sizinle iletişime geçelim.",
             ],
             [
-                'language_id'   => 2,
-                'site_config_id'    => 1,
-                'title'     => 'VIP-TEC - Professional Utility Knives',
+                'language_id' => 2,
+                'site_config_id' => 1,
+                'title' => 'VIP-TEC - Professional Utility Knives',
                 'site_name' => 'VIP-TEC',
                 'description' => 'Metal body utility knife, plastic body utility knife, safe utility knife, Precision utility knife, spare blades',
                 'about_title' => 'About VIP-TEC',
@@ -39,6 +41,8 @@ class SiteConfigTranslationsSeeder extends Seeder
                 'vision' => view('seeder.en_vision'),
                 "quota_title" => 'Get a Quote for Special Offers and Solutions',
                 "quota_description" => 'Prices vary according to features of desired products. To get our special price offer, press the button below and we will contact you.',
+                "subscribe_title" => "Get a Quote for Special Offers and Solutions",
+                "subscribe_description" => "Prices vary according to features of desired products. To get our special price offer, press the button below and we will contact you.",
             ],
 
         ];

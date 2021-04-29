@@ -26,14 +26,14 @@ class CertificateController extends TranslationModelController
         $this->slug = null;
         $this->isVisibleIncluded = true;
 
-        $this->extraModelFields = [
+        $this->modelFields = [
             'image' => [
                 'type' => 'image',
                 'required' => true
             ],
         ];
 
-        $this->extraTranslationFields = [
+        $this->translationFields = [
             'title' => 'text',
         ];
         $this->hasOrder = true;
