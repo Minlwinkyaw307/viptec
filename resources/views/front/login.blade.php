@@ -109,6 +109,9 @@
                         <button class="btn btn-primary">Login</button>
                     </div>
                 </div>
+                <div class="pt-3">
+                    <a href="{{ route('front.auth.redirect') }}" class="fb connect w-100 ">Sign in with Facebook</a>
+                </div>
             </div>
         </form>
     </div>
