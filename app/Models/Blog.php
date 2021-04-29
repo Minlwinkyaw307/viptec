@@ -40,12 +40,75 @@ class Blog extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public CONST BASE_LOCATION = 'blogs';
+
+    protected $guarded = [];
+
+    protected $appends = ['status'];
+
+    public function scopeStatusFilter($query, $filter) {
+        if($filter == 1)
+        {
+            return $query->where('visible', false);
+        }else
+        {
+            return $query->where('visible', true);
+        }
+    }
+
+    /**
+     * Return all the statuses of feature
+     *
+     * @return array
+     */
+    public static function package_statues(): array
+    {
+        return [
+            '0' => __('All Options'),
+            '1' => __('Hidden'),
+            '2' => __("Active"),
+        ];
+    }
+
+    /**
+     * Return the status of the product with class and name
+     *
+     * @return array
+     */
+    public function getStatusAttribute(): array
+    {
+        if($this->deleted_at)
+        {
+            return [
+                'class' => 'error',
+                'name' => __("Deleted")
+            ];
+        } else if ($this->attributes['visible']) {
+            return [
+                'class' => 'success',
+                'name' => __("Active")
+            ];
+        }
+        return [
+            'class' => 'waiting',
+            'name' => __('Hidden')
+        ];
+    }
+
     /**
      * @return HasMany
      */
     public function translations(): HasMany
     {
         return $this->hasMany(BlogTranslation::class, 'blog_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function blog_views(): HasMany
+    {
+        return $this->hasMany(BlogView::class, 'blog_id', 'id');
     }
 
     /**

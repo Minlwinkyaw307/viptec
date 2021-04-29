@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\Admin\FeatureController;
@@ -25,4 +26,5 @@ Route::prefix('admin/')->name('admin.')->group(function() {
     Route::resource('feature', FeatureController::class)->except(['show']);
     Route::resource('package-type', PackageTypeController::class)->except(['show']);
     Route::resource('faq', FAQController::class)->except(['show']);
+    Route::resource('blog', BlogController::class)->except(['show']);
 });

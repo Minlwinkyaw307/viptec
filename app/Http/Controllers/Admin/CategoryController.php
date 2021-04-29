@@ -25,7 +25,7 @@ class CategoryController extends TranslationModelController
     {
         $this->model = Category::class;
         $this->translationModel = CategoryTranslation::class;
-        $this->isSlugIncluded = true;
+        $this->slug = ['name'];
         $this->isVisibleIncluded = true;
         $this->counts = ['products'];
         $this->route = 'category';

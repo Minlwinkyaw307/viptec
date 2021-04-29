@@ -25,7 +25,7 @@ class FeatureController extends TranslationModelController
     {
         $this->model = Feature::class;
         $this->translationModel = FeatureTranslation::class;
-        $this->isSlugIncluded = false;
+        $this->slug = null;
         $this->isVisibleIncluded = true;
         $this->route = 'feature';
         $this->key = 'feature_id';

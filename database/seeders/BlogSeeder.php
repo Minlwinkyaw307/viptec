@@ -18,12 +18,16 @@ class BlogSeeder extends Seeder
             [
                 'image' => 'blogs/1.jpg',
                 'thumbnail' => 'blogs/t1.jpg',
-                'visible' => true
+                'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'image' => 'blogs/2.jpg',
                 'thumbnail' => 'blogs/t2.jpg',
-                'visible' => true
+                'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
 

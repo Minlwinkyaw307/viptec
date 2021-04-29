@@ -23,7 +23,7 @@ class PackageTypeController extends TranslationModelController
     {
         $this->model = PackageType::class;
         $this->translationModel = PackageTypeTranslation::class;
-        $this->isSlugIncluded = false;
+        $this->slug = null;
         $this->isVisibleIncluded = true;
         $this->route = 'package-type';
         $this->key = 'package_type_id';

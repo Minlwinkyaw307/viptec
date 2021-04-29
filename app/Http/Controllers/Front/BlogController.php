@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\BlogView;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -28,11 +29,18 @@ class BlogController extends Controller
 
     public function detail(Request $request, $slug)
     {
+
+
         $blog = Blog::with(['translations' => function($query){
             get_current_translation($query);
         }])->whereHas('translations', function($query) use ($slug) {
             $query->where('slug', $slug);
-        })->first();
+        })->firstOrFail();
+
+        BlogView::create([
+            'blog_id' => $blog->id,
+            'ip' => $request->ip(),
+        ]);
 
         return view('front.blog.detail', [
             'blog' => $blog,

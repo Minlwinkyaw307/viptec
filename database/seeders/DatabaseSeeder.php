@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\BlogView;
 use App\Models\CategoryTranslation;
 use App\Models\FAQTranslation;
 use App\Models\SiteConfigTranslations;
@@ -43,6 +44,6 @@ class DatabaseSeeder extends Seeder
             CertificateSeeder::class,
             CertificateTranslationSeeder::class,
         ]);
-        // \App\Models\User::factory(10)->create();
+         BlogView::factory(50)->create();
     }
 }
