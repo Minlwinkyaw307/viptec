@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\LanguageMiddlerware;
+use App\Http\Middleware\SessionLanguageMiddlerware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -39,7 +40,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \ChinLeung\MultilingualRoutes\DetectRequestLocale::class,
-            LanguageMiddlerware::class,
         ],
 
         'api' => [
@@ -65,5 +65,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'language' => LanguageMiddlerware::class,
+        'sessionLanguage' => SessionLanguageMiddlerware::class,
     ];
 }

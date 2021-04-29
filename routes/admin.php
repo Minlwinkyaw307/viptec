@@ -39,6 +39,8 @@ Route::prefix('admin/')->name('admin.')->group(function() {
     Route::resource('slider', SliderController::class)->except(['show']);
     Route::resource('contact-message', ContactMessageController::class)->except(['create', 'store', 'edit', 'update']);
 
+    Route::get('language/{lang}', [\App\Http\Controllers\Admin\LanguageController::class, 'change_language'])->name('language.change');
+
     Route::prefix('configs/')->name('config.')->group(function () {
         Route::get('home', [HomePageController::class, 'edit'])->name('home.edit');
         Route::put('home', [HomePageController::class, 'update'])->name('home.update');

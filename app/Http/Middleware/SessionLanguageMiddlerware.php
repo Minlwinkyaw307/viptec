@@ -16,6 +16,11 @@ class SessionLanguageMiddlerware
      */
     public function handle(Request $request, Closure $next)
     {
+        if(!session('lang'))
+        {
+            session()->put('lang', 'tr');
+        }
+        app()->setLocale(session('lang'));
         return $next($request);
     }
 }

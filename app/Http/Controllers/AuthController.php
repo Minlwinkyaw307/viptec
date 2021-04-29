@@ -47,7 +47,7 @@ class AuthController extends Controller
     public function logout(): \Illuminate\Http\RedirectResponse
     {
         Auth::logout();
-        return redirect()->route('admin.login');
+        return redirect(localized_route('front.login'));
     }
 
     /**
