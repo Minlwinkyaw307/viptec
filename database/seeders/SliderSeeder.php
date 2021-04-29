@@ -19,16 +19,22 @@ class SliderSeeder extends Seeder
                 'order_no' => 1,
                 'image' => 'sliders/slider-1.jpg',
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'order_no' => 2,
                 'image' => 'sliders/slider-2.jpg',
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'order_no' => 3,
                 'image' => 'sliders/slider-3.jpg',
                 'visible' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
         ];

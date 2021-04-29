@@ -8,10 +8,12 @@ use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\PackageTypeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProductPackageTypeController;
+use App\Http\Controllers\Admin\SliderController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,5 +34,11 @@ Route::prefix('admin/')->name('admin.')->group(function() {
     Route::resource('blog', BlogController::class)->except(['show']);
     Route::resource('certificate', CertificateController::class)->except(['show']);
     Route::resource('gallery', GalleryController::class)->except(['show']);
+    Route::resource('slider', SliderController::class)->except(['show']);
     Route::resource('contact-message', ContactMessageController::class)->except(['create', 'store', 'edit', 'update']);
+
+    Route::prefix('configs/')->name('config.')->group(function () {
+        Route::get('home', [HomePageController::class, 'edit'])->name('home.edit');
+        Route::put('home', [HomePageController::class, 'update'])->name('home.update');
+    });
 });
