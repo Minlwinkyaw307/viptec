@@ -9,7 +9,7 @@
 <body class="preload">
 
 @include('admin.includes.navbar')
-
+@include('partials.alert-message')
 <main class="content relative">
     <header class="header flex items-center justify-between mb-6">
         <div class="header-left">

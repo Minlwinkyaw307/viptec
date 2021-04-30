@@ -23,8 +23,6 @@ class ProductCreateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

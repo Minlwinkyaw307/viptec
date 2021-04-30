@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BlogIndexRequest;
 use App\Models\Blog;
 use App\Models\Product;
 use App\Models\Visitor;
