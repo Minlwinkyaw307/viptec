@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'dashboard' => [
+        'name' => 'Dashboard',
+        'route' => 'admin.index',
+        'icon' => 'ti-home',
+    ],
     'products' => [
         'name' => 'Products',
         'route' => 'admin.product.index',
@@ -51,8 +56,8 @@ return [
                 'route' => 'admin.gallery.index',
             ],
             [
-                'name' => 'Home Page',
-                'route' => 'admin.config.home.edit',
+                'name' => 'Settings',
+                'route' => 'admin.config.setting.edit',
             ]
         ]
     ]

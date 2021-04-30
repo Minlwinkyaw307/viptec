@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductView;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -58,6 +59,12 @@ class ProductController extends Controller
         }, 'product_images', 'product_compatibles.blade:id,code'])
             ->where('visible', true)->firstOrFail();
 
+
+        ProductView::create([
+            'ip' => $request->ip(),
+            'product_id' => $product->id,
+            'viewed_at' => now(),
+        ]);
 
         return view('front.product.detail', [
             'product' => $product,

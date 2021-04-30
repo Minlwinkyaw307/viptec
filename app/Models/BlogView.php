@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|BlogView withTrashed()
  * @method static \Illuminate\Database\Query\Builder|BlogView withoutTrashed()
  * @mixin \Eloquent
+ * @property string $viewed_at
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogView whereViewedAt($value)
  */
 class BlogView extends Model
 {

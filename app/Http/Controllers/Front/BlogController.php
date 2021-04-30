@@ -42,6 +42,12 @@ class BlogController extends Controller
             'ip' => $request->ip(),
         ]);
 
+        BlogView::create([
+            'blog_id' => $blog->id,
+            'ip' => $request->ip(),
+            'viewed_at' => now()
+        ]);
+
         return view('front.blog.detail', [
             'blog' => $blog,
             'title' => $blog->translations[0]->title,

@@ -61,6 +61,8 @@ use Illuminate\Support\Facades\Storage;
  * @property-read array $status
  * @method static \Illuminate\Database\Eloquent\Builder|Product productFilter($filter)
  * @method static \Illuminate\Database\Eloquent\Builder|Product statusFilter($filter)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductView[] $product_views
+ * @property-read int|null $product_views_count
  */
 class Product extends Model
 {
@@ -174,6 +176,14 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function product_views(): HasMany
+    {
+        return $this->hasMany(ProductView::class, 'product_id', 'id');
     }
 
     /**

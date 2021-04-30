@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Visitor whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Visitor whereUrl($value)
  * @mixin \Eloquent
+ * @property string $visited_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Visitor whereVisitedAt($value)
  */
 class Visitor extends Model
 {

@@ -19,7 +19,8 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>{{ __("Title") }}</th>
+                <th>{{ __("Question") }}</th>
+                <th>{{ __("Answer") }}</th>
                 <th>{{ __('Date') }}</th>
                 <th>{{ __('Status') }}</th>
                 <th>{{ __("Action") }}</th>

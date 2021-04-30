@@ -6,6 +6,7 @@ use App\Models\BlogView;
 use App\Models\CategoryTranslation;
 use App\Models\ContactMessage;
 use App\Models\FAQTranslation;
+use App\Models\ProductView;
 use App\Models\SiteConfigTranslations;
 use App\Models\SliderTranslation;
 use App\Models\User;
@@ -47,9 +48,10 @@ class DatabaseSeeder extends Seeder
             CertificateSeeder::class,
             CertificateTranslationSeeder::class,
         ]);
-         BlogView::factory(50)->create();
+         BlogView::factory(250)->create();
          ContactMessage::factory(50)->create();
          User::factory(1)->create();
          Visitor::factory(250)->create();
+         ProductView::factory(250)->create();
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlogViewsTable extends Migration
+class CreateProductViewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateBlogViewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blog_views', function (Blueprint $table) {
+        Schema::create('product_views', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Blog::class, 'blog_id')
-                ->constrained('blogs')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Product::class, 'product_id')
+                ->constrained('products')->cascadeOnDelete();
             $table->string('ip', 15);
-            $table->date('viewed_at')->default(now());
-            $table->softDeletes();
+            $table->date('viewed_at');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateBlogViewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blog_views');
+        Schema::dropIfExists('product_views');
     }
 }
