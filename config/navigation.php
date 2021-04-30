@@ -44,7 +44,7 @@ return [
                 'route' => 'admin.config.home.edit',
             ],
             [
-                'name' => 'Slider',
+                'name' => 'Sliders',
                 'route' => 'admin.slider.index',
             ],
             [

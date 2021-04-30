@@ -34,7 +34,7 @@
                         :label="__('Name') . ' (' . __('English') . ')'"
                         name="en_question"
                         :value="old('en_question') ?? isset($data) ? $data->translations->where('language_id', 2)->first()->question : null"
-                        :placeholder="__('Please Enter Feature Name')"
+                        :placeholder="__('Please Enter Question')"
                         :error="$errors->first('en_question') ?? null"
                     ></x-admin::text-input>
 

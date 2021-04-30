@@ -22,8 +22,8 @@
                 <th>{{ __("Title") }}</th>
                 <th>{{ __('Date') }}</th>
                 <th>{{ __('Category') }}</th>
-                <th>{{ __("Price") }}</th>
-                <th>İşlem</th>
+                <th>{{ __("Status") }}</th>
+                <th>{{ __("Action") }}</th>
             </tr>
             </thead>
             <tbody>

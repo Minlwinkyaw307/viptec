@@ -48,8 +48,8 @@
     <div class="newsletter relative">
         <div class="container mx-auto flex items-center justify-between flex-col lg:flex-row">
             <div class="newsletter-text">
-                <span class="block">{{ $about->translations[0]->quota_title }}</span>
-                <p>{{ $about->translations[0]->quota_description }}</p>
+                <span class="block">{{ $about->translations[0]->subscribe_title }}</span>
+                <p>{{ $about->translations[0]->subscribe_description }}</p>
             </div>
             <div class="newsletter-input flex justify-center flex-col sm:flex-row">
                 <input id="email" class="focus:outline-none" type="email" placeholder="{{ __("Email Address") }}">

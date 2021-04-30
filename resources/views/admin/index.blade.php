@@ -73,7 +73,7 @@
             </ul>
         </div>
         <div class="box mt-6 mx-3">
-            <h1 class="text-2xl font-bold py-5">{{ __("Product With Most Views") }}</h1>
+            <h1 class="text-2xl font-bold py-5">{{ __("Blog With Most Views") }}</h1>
             <ul class="flex content-center">
                 @foreach($top_blogs as $blog)
                     <li class="w-1/3">

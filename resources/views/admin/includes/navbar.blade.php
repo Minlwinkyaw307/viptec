@@ -37,7 +37,7 @@
                                     @foreach($navigation['children'] as $subNav)
                                         <li class=""><a class="flex items-center"
                                                         href="{{ route($subNav['route']) }}"><span
-                                                    class="block relative"></span>{{ $subNav['name'] }}</a></li>
+                                                    class="block relative"></span>{{ __($subNav['name']) }}</a></li>
                                     @endforeach
                                 </ul>
                             </div>

@@ -33,6 +33,8 @@ class HomeController extends Controller
                 'about_description',
                 'quota_title',
                 'quota_description',
+                'subscribe_title',
+                'subscribe_description',
             ]);
         }])->first();
 
