@@ -1,4 +1,4 @@
-@import "https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css";
+@import "https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css";
 @import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500&display=swap&subset=latin-ext");
 
 ::selection {

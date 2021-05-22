@@ -43,6 +43,16 @@
 <script src="{{ asset('assets/js/jquery.fancybox.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2JWWC4M4R5"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-2JWWC4M4R5');
+</script>
+
 @yield('bb-javascript')
 
 </body>

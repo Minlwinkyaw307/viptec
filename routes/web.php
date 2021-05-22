@@ -20,6 +20,11 @@ use Spatie\Analytics\Period;
 |
 */
 
+Route::get('/setup', function() {
+    Artisan::call('setup:install');
+    return "Done";
+});
+
 Route::name('front.')->group(function() {
     Route::multilingual('/', [HomeController::class, 'index'])->name('index');
     Route::multilingual('/corporate', [HomeController::class, 'corporate'])->name('corporate');
